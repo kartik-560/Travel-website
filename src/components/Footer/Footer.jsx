@@ -18,7 +18,7 @@ const Footer = () => {
     address: "123 Business Street, Tech City, TC 12345"
   };
 
-  const navItems = ['Home' , 'Itinerary', 'Testimonials' , 'Contact'];
+  const navItems = ['Home' ,'About', 'Itinerary', 'Testimonials' , 'Contact'];
 
   return (
     <div className="bg-[#FFF5EE] text-black py-8 px-4 w-full h-full">
