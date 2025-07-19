@@ -192,11 +192,13 @@ const AboutUsPage = () => {
               className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
             >
               {/* Always show image */}
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-80 object-cover"
-              />
+             <div className="w-full aspect-square md:aspect-auto md:h-80 bg-white overflow-hidden rounded-t-2xl flex items-center justify-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="object-contain md:object-cover object-center w-full h-full"
+                  />
+                </div>
 
               {/* Mobile content: show always below image */}
               <div className="p-4 text-center md:hidden">
