@@ -20,7 +20,7 @@ const Header1 = () => {
               <img
                 src="/assest/logo.webp"
                 alt="Better Backpacking India"
-                className="h-[125%] w-full mt-[-0.5rem]"
+                 className='h-[190%] mt-[-1.9rem] w-full'
               />
             </a>
           </div>
@@ -50,7 +50,7 @@ const Header1 = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
+        {/* {isOpen && (
           <div className="md:hidden py-4 px-2 bg-white shadow-lg">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
@@ -69,6 +69,22 @@ const Header1 = () => {
               >
                 Get Started
               </button>
+            </nav>
+          </div>
+        )} */}
+         {isOpen && (
+          <div className="md:hidden py-4 px-2 bg-white shadow-lg">
+            <nav className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={`${item === 'Home' ? '/' : item.toLowerCase()}`}
+                  className="text-black hover:opacity-75 transition-opacity duration-150"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
             </nav>
           </div>
         )}
