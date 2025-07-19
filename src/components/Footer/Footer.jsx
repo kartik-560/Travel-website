@@ -60,7 +60,7 @@ const Footer = () => {
                 {navItems.map((item, idx) => (
                   <motion.a
                     key={idx}
-                    href={`/${item.toLowerCase()}`}
+                    href={`/${item === 'Home' ? '' : item.toLowerCase()}`}  
                     whileHover={{ scale: 1.05 }}
                     className="hover:text-orange-500 transition-colors text-sm"
                   >
