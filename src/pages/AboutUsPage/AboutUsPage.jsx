@@ -127,11 +127,11 @@ const AboutUsPage = () => {
         className="max-w-6xl w-[90%] bg-white rounded-3xl flex flex-col md:flex-row"
       >
         {/* Image Section */}
-        <div className="w-full md:w-1/2 h-[300px] sm:h-[450px] overflow-hidden rounded-3xl bg-red-500">
+        <div className="w-full md:w-1/2 h-[300px] sm:h-[415px] overflow-hidden rounded-3xl bg-red-500">
           <img
             src="/assest/icon.webp"
             alt="Travel"
-            className="w-full h-[300px] sm:h-[450px] object-cover"
+            className="w-full h-[300px] sm:h-[415px] object-cover"
           />
         </div>
 
