@@ -70,3 +70,9 @@ display: none;
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .custom-md-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

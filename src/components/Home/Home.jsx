@@ -17,6 +17,7 @@ import ContactFormPage from '../../pages/ContactFormPage/ContactFormPage';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import {Helmet} from "react-helmet";
 import TravelItineraryDetail from '../../pages/Itinerary_details_page/TravelItineraryDetail';
+import AboutUs from '../AboutUs/AboutUs';
 // function Home() {
 //   return (
 //     <Router>
@@ -191,7 +192,7 @@ function Home() {
         <Route 
           path="/about"
           element={
-            <><Header1 /><AboutUsPage /></>
+            <><Header1 /><AboutUs /></>
           }/>
       </Routes>
       <Footer />

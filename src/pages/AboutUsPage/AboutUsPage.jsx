@@ -112,117 +112,127 @@ const AboutUsPage = () => {
         </div>
       </div>
     ),
-  
   };
 
   return (
-  
-     <>
-    {/* Main About Section */}
-    <div ref={ref} className="min-h-[80vh] bg-white py-16 px-4 flex items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-6xl w-[90%] bg-white rounded-3xl flex flex-col md:flex-row"
+    <>
+      {/* Main About Section */}
+      <div
+        ref={ref}
+        className="min-h-[80vh] bg-white pt-16 pb-6 px-4 flex items-center justify-center"
       >
-        {/* Image Section */}
-        <div className="w-full md:w-1/2 h-[300px] sm:h-[415px] overflow-hidden rounded-3xl bg-red-500">
-          <img
-            src="/assest/icon.webp"
-            alt="Travel"
-            className="w-full h-[300px] sm:h-[415px] object-cover"
-          />
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={
+            isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+          }
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl w-[90%] bg-white rounded-3xl flex flex-col md:flex-row"
+        >
+          {/* Image Section */}
+          <div className="w-full md:w-1/2 h-[300px]  overflow-hidden rounded-3xl bg-red-500">
+            <img
+              src="/assest/icon.webp"
+              alt="Travel"
+              className="w-full h-[300px]  object-cover"
+            />
+          </div>
 
-        {/* Content Section */}
-        <div className="flex flex-col flex-grow p-4 md:p-6 h-[450px] lg:h-[550px]">
-          <h1 className="text-4xl font-bold mb-6 text-black">Wanderlust Chronicles</h1>
+          {/* Content Section */}
+          <div className="flex flex-col flex-grow p-4 md:p-6 h-[450px] lg:h-[550px]">
+            <h1 className="text-4xl font-bold mb-6 text-black">
+              Wanderlust Chronicles
+            </h1>
 
-          {/* Tabs */}
-          <div className="flex space-x-4 mb-6">
-            {Object.keys(sections).map((section) => (
-              <button
-                key={section}
-                onClick={() => setActiveSection(section)}
-                className={`px-4 py-2 rounded-full transition-all ${
-                  activeSection === section ? "bg-orange-500 text-white" : "bg-orange-100 text-orange-800"
-                }`}
+            {/* Tabs */}
+            <div className="flex space-x-4 mb-6">
+              {Object.keys(sections).map((section) => (
+                <button
+                  key={section}
+                  onClick={() => setActiveSection(section)}
+                  className={`px-4 py-2 rounded-full transition-all ${
+                    activeSection === section
+                      ? "bg-orange-500 text-white"
+                      : "bg-orange-100 text-orange-800"
+                  }`}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            {/* Section Content */}
+            <div className="flex-grow w-full overflow-hidden relative items-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 overflow-auto pr-2"
+                >
+                  {sections[activeSection]}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Team Section - Stacked Vertically */}
+
+      <section className="bg-white  pb-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+            Meet Our Team
+          </h2>
+          {/* <div className="overflow-y-auto  max-h-[85vh]"> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {teamMembers.map((member, idx) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2, duration: 0.6 }}
+                className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
               >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
-              </button>
+                {/* Always show image */}
+                
+                 <div className="w-full aspect-square md:aspect-auto md:h-80 bg-white overflow-hidden rounded-t-2xl flex items-center justify-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="object-contain md:object-cover object-center w-full h-full"
+                  />
+                </div>
+                {/* Mobile content: show always below image */}
+                <div className="p-4 text-center md:hidden">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 font-medium mb-2">
+                    {member.role}
+                  </p>
+                  <p className="text-sm text-gray-700">{member.description}</p>
+                </div>
+
+                {/* Desktop content: show on hover */}
+                <div className="absolute inset-0 hidden md:flex flex-col justify-end bg-black bg-opacity-70 text-white p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <h3 className="text-lg font-semibold">{member.name}</h3>
+                  <p className="text-sm text-gray-300 mb-2">{member.role}</p>
+                  <p className="text-sm text-gray-200 max-h-[9rem] overflow-y-auto">
+                    {member.description}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
-
-          {/* Section Content */}
-          <div className="flex-grow w-full overflow-hidden relative items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 overflow-auto pr-2"
-              >
-                {sections[activeSection]}
-              </motion.div>
-            </AnimatePresence>
-          </div>
         </div>
-      </motion.div>
-    </div>
-
-    {/* Team Section - Stacked Vertically */}
-   
-     <section className="bg-white py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
-          Meet Our Team
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {teamMembers.map((member, idx) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
-            >
-              {/* Always show image */}
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-80 object-cover"
-              />
-
-              {/* Mobile content: show always below image */}
-              <div className="p-4 text-center md:hidden">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-gray-600 font-medium mb-2">
-                  {member.role}
-                </p>
-                <p className="text-sm text-gray-700">{member.description}</p>
-              </div>
-
-              {/* Desktop content: show on hover */}
-              <div className="absolute inset-0 hidden md:flex flex-col justify-end bg-black bg-opacity-70 text-white p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm text-gray-300 mb-2">{member.role}</p>
-                <p className="text-sm text-gray-200 max-h-[9rem] overflow-y-auto">
-                  {member.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </>
+        {/* </div> */}
+      </section>
+    </>
   );
 };
 
