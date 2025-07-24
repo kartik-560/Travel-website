@@ -67,7 +67,7 @@ const ItineraryCard = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8" id="itinerary">
+    <div className="max-w-6xl mx-auto p-6 space-y-12" id="itinerary">
       <h2 className="text-3xl font-bold text-center mb-8">
         Featured Adventures
       </h2>
@@ -75,26 +75,38 @@ const ItineraryCard = () => {
       {loading ? (
         <div className="text-center">Loading trips...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {trips.slice(0, 3).map((trip, index) => (
-            <Link
-              to={`/travel_itinerary/${trip.id}/${encodeURIComponent(
-                trip.title
-              )}`}
-              key={trip.id}
-            >
-              <ImmersiveCard trip={trip} />
-            </Link>
-          ))}
-        </div>
+        Object.entries(
+          trips.reduce((acc, trip) => {
+            const category = trip.category || "Uncategorized";
+            if (!acc[category]) acc[category] = [];
+            acc[category].push(trip);
+            return acc;
+          }, {})
+        ).map(([category, tripsInCategory]) => (
+          <div key={category} className="space-y-4">
+            <h3 className="text-2xl font-semibold text-gray-800">{category}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {tripsInCategory.map((trip) => (
+                <Link
+                  to={`/travel_itinerary/${trip.id}/${encodeURIComponent(
+                    trip.title
+                  )}`}
+                  key={trip.id}
+                >
+                  <ImmersiveCard trip={trip} />
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))
       )}
 
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-10">
         <a href="/itinerary">
           <button
             className="px-6 py-3 text-white bg-gradient-to-r from-[#FF9D81] to-[#FF4E4E] hover:bg-blue-700 rounded-lg shadow-lg hover:shadow-xl 
-                 transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
-                 focus:ring-blue-400 focus:ring-offset-2"
+               transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
+               focus:ring-blue-400 focus:ring-offset-2"
           >
             See More
           </button>
