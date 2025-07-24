@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 
 function Features() {
   const features = [
@@ -48,20 +47,14 @@ function Features() {
     },
   ];
   return (
-    <div
-      className="flex items-center justify-center bg-gray-100"
-      id='feature'
-    >
+    <div className="flex items-center justify-center bg-gray-100" id="feature">
       <section className="w-full">
         <h2 className="text-4xl font-bold text-center m-2 mt-8">
           Our Features
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature) => (
-            <div
-              key={feature.id}
-              className="bg-gray-50 rounded-xl p-8"
-            >
+            <div key={feature.id} className="bg-gray-50 rounded-xl p-8">
               <div className="bg-white rounded-2xl w-16 h-16 flex items-center justify-center shadow-sm mb-6">
                 {feature.icon}
               </div>
