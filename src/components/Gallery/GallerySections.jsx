@@ -126,28 +126,9 @@ const CinematicModal = ({
   </AnimatePresence>
 );
 
-const GallerySections = () => {
+const GallerySections = ({ images = [], title = "", subTitle = "" }) => {
   const [modalImage, setModalImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [images, setImages] = useState([]);
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    axios
-      .get(`https://travel-backend-0cb0.onrender.com/api/trips/${id}`)
-      .then((res) => {
-        const { images, title, subTitle } = res.data;
-        setImages(images || []);
-        setTitle(title);
-        setSubTitle(subTitle);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch trip:", err);
-      });
-  }, [id]);
 
   const openModal = (index) => {
     setCurrentIndex(index);
@@ -175,6 +156,7 @@ const GallerySections = () => {
         onImageClick={openModal}
         title={title}
         subTitle={subTitle}
+        loading="lazy"
       />
       <CinematicModal
         image={modalImage}
@@ -184,9 +166,11 @@ const GallerySections = () => {
         onPrev={handlePrev}
         totalImages={images.length}
         currentIndex={currentIndex}
+        loading="lazy"
       />
     </div>
   );
 };
+
 
 export default GallerySections;

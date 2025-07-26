@@ -7,6 +7,7 @@ const ContactFormPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone:"",
     message: ''
   });
 
@@ -18,11 +19,31 @@ const ContactFormPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form submission logic
-    console.log(formData);
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  console.log("📤 Submitting form data:", formData); // ✅ Helpful debug log
+
+  try {
+    const response = await fetch("http://localhost:5000/api/trips/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Thanks! We’ll get in touch soon.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } else {
+      alert(result.error || "Submission failed.");
+    }
+  } catch (err) {
+    alert("Something went wrong. Please try again later.");
+    console.error("❌ Submit Error:", err);
+  }
+};
 
   return (
     <div className="max-w-[90rem] w-full bg-beige-50 flex items-center justify-center p-4 md:p-6 mt-14">
@@ -81,6 +102,18 @@ const ContactFormPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email Address"
+                className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
+                required
+              />
+
+              <input
+                type="tel" // ✅ correct type for phone numbers
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Phone number"
+                pattern="^\+?[0-9]{10,15}$" // ✅ validation pattern
+                title="Enter a valid phone number (10 to 15 digits, with or without +)"
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />

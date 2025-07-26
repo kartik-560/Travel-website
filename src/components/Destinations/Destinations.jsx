@@ -159,27 +159,25 @@ import {
 
 import FAQ from "../FAQ/Faq";
 
-const Destinations = () => {
-  const { id } = useParams();
-  const [trip, setTrip] = useState(null);
-  const [loading, setLoading] = useState(true);
+const Destinations = ({ trip }) => {
 
-  useEffect(() => {
-  if (!id || id === '0') return; // Prevent invalid requests
 
-  setLoading(true);
-  axios
-    .get(`https://travel-backend-0cb0.onrender.com/api/trips/${id}`)
-    .then((res) => {
-      setTrip(res.data);
-    })
-    .catch((err) => {
-      console.error("Failed to fetch trip:", err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}, [id]);
+//   useEffect(() => {
+//   if (!id || id === '0') return; // Prevent invalid requests
+
+//   setLoading(true);
+//   axios
+//     .get(`https://travel-backend-0cb0.onrender.com/api/trips/${id}`)
+//     .then((res) => {
+//       setTrip(res.data);
+//     })
+//     .catch((err) => {
+//       console.error("Failed to fetch trip:", err);
+//     })
+//     .finally(() => {
+//       setLoading(false);
+//     });
+// }, [id]);
 
 
   const Design4 = () => (
@@ -222,8 +220,7 @@ const Destinations = () => {
     </div>
   );
 
-  if (loading) return <p className="p-10 text-center">Loading trip details...</p>;
-  if (!trip) return <p className="p-10 text-center text-red-500">Trip not found.</p>;
+if (!trip) return null;
 
   return (
     <div className="container mx-auto p-6 md:p-12 pt-0 max-w-[96rem]">

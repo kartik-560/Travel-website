@@ -54,16 +54,21 @@ const ItineraryCard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://travel-backend-0cb0.onrender.com/api/trips")
-      .then((res) => {
+    const fetchTrips = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          "https://travel-backend-0cb0.onrender.com/api/trips"
+        );
         setTrips(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Failed to fetch trips:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchTrips();
   }, []);
 
   return (

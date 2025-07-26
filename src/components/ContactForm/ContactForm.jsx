@@ -1,38 +1,57 @@
-
-
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form submission logic
-    console.log(formData);
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  console.log("📤 Submitting form data:", formData); // ✅ Helpful debug log
+
+  try {
+    const response = await fetch("http://localhost:5000/api/trips/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Thanks! We’ll get in touch soon.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } else {
+      alert(result.error || "Submission failed.");
+    }
+  } catch (err) {
+    alert("Something went wrong. Please try again later.");
+    console.error("❌ Submit Error:", err);
+  }
+};
+
 
   return (
     <div className="max-w-[90rem] w-full bg-beige-50 flex items-center justify-center p-4 md:p-6 my-0 mx-auto">
       <div className="w-full max-w-5xl bg-white shadow-2xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5">
         {/* Image Section */}
-        <div 
+        <div
           className="hidden md:block md:col-span-3 lg:col-span-3 bg-cover bg-center relative"
           style={{
             backgroundImage: 'url("assest/Nature/valley.webp")',
-            backgroundPosition: 'center'
+            backgroundPosition: "center",
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-8">
@@ -41,8 +60,9 @@ const ContactForm = () => {
                 Embark on Your Dream Journey
               </h2>
               <p className="text-base md:text-lg text-beige-200 mb-6">
-                Discover extraordinary destinations, create unforgettable memories, 
-                and let our experts craft the perfect travel experience tailored just for you.
+                Discover extraordinary destinations, create unforgettable
+                memories, and let our experts craft the perfect travel
+                experience tailored just for you.
               </p>
               <div className="flex justify-center space-x-4">
                 <div className="bg-orange-600 bg-opacity-70 p-4 rounded-lg text-center">
@@ -65,7 +85,7 @@ const ContactForm = () => {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 gap-4">
-              <input 
+              <input
                 type="text"
                 name="name"
                 value={formData.name}
@@ -74,8 +94,8 @@ const ContactForm = () => {
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />
-             
-              <input 
+
+              <input
                 type="email"
                 name="email"
                 value={formData.email}
@@ -84,9 +104,21 @@ const ContactForm = () => {
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />
+
+              <input
+                type="tel" // ✅ correct type for phone numbers
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Phone number"
+               // ✅ validation pattern
+                title="Enter a valid phone number (10 to 15 digits, with or without +)"
+                className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
+                required
+              />
             </div>
-            
-            <textarea 
+
+            <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -94,8 +126,8 @@ const ContactForm = () => {
               className="w-full p-3 border border-orange-200 rounded-md h-32 focus:ring-2 focus:ring-orange-300 transition"
             />
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300 ease-in-out transform hover:scale-105"
             >
               Request Consultation
