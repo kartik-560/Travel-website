@@ -13,10 +13,10 @@ const Footer = () => {
     logo: "LOGO",
     email: "contact@example.com",
     phone: "+91-8219463849",
-    address: "Shankar Niwas,Chalaunthi,PO Sanjauli, Shimla, Himachal Pradesh - 171006
+    address: "Shankar Niwas, Chalaunthi, PO Sanjauli, Shimla, Himachal Pradesh - 171006
 
 ",
-  };
+  }; 
 
   const navItems = ["Home", "About", "Itinerary", "Testimonials", "Contact"];
 
