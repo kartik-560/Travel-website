@@ -75,7 +75,8 @@ const Hero1 = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2 }}
-                  className="text-3xl sm:text-2xl max-w-2xl mb-6 font-poppins"
+                  className="text-[22px] sm:text-[28px] md:text-[32px] max-w-2xl mb-6 font-poppins"
+
                 >
                   Curated Travel Authentic Experiences Personalized Journeys
                 </motion.p>
@@ -84,24 +85,22 @@ const Hero1 = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.4 }}
-                  className="text-xl sm:text-xl max-w-2xl text-white/80 mb-8"
+                   className="text-[20px] sm:text-[18px] max-w-2xl text-white/90 mb-8"
+
                 >
                   🌍 Led by Experts | 24/7 Personalized Assistance | Immersive
                   Cultural Exchange
                 </motion.p>
 
-          
-                  <motion.button
-                   onClick={() => navigate("/itinerary")}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.6 }}
-                    
-                    className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
-                  >
-                    Start Your Journey →
-                  </motion.button>
-           
+                <motion.button
+                  onClick={() => navigate("/itinerary")}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.6 }}
+                  className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+                >
+                  Start Your Journey →
+                </motion.button>
               </div>
             </div>
           ))}
