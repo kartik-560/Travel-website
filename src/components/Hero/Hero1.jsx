@@ -75,7 +75,7 @@ const Hero1 = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2 }}
-                  className="text-3xl sm:text-2xl max-w-2xl mb-6 font-poppins"
+                  className="text-3xl sm:text-xl max-w-2xl mb-6 font-poppins"
                 >
                   Curated Travel Authentic Experiences Personalized Journeys
                 </motion.p>
