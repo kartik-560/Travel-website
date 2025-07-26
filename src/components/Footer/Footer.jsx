@@ -12,8 +12,10 @@ const Footer = () => {
   const companyInfo = {
     logo: "LOGO",
     email: "contact@example.com",
-    phone: "+1 (234) 567-8900",
-    address: "123 Business Street, Tech City, TC 12345",
+    phone: "+91-8219463849",
+    address: "Shankar Niwas,Chalaunthi,PO Sanjauli, Shimla, Himachal Pradesh - 171006
+
+",
   };
 
   const navItems = ["Home", "About", "Itinerary", "Testimonials", "Contact"];
@@ -75,7 +77,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-end space-y-6">
             <div className="w-full">
               <h2 className="text-xl font-bold uppercase text-center md:text-right mb-4">
-                Information
+                Better Backpacking India
               </h2>
               <div className="space-y-2 text-center md:text-right">
                 <motion.p
