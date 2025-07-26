@@ -37,3 +37,8 @@
   }
 } */
 
+@media (min-width: 360px) {
+    .xs\:max-h-\[93\.0vh\], .xs\:max-h-\[93vh\] {
+        max-height: 100vh;
+    }
+}
