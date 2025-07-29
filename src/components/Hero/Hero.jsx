@@ -4,49 +4,49 @@ import { motion, AnimatePresence } from "framer-motion";
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedActivity, setSelectedActivity] = useState(0);
+  const [manualOverride, setManualOverride] = useState(false);
 
   const activities = [
     {
       id: "01",
       title: "Curated Travel",
-      // description: "Climbing the tallest mountain in Europe!",
+      description: "Explore destinations tailored to your pace and passions.",
       imageUrl: "/assest/HeroImages/gompa-transformed.webp",
     },
     {
       id: "02",
       title: "Authentic Experiences",
-      // description: "Let's meet the wildest river and raft on these!",
+      description: "Dive into culture, cuisine, and connections that matter.",
       imageUrl: "/assest/HeroImages/rocky_hotels.webp",
     },
     {
       id: "03",
       title: "Personalized Journeys",
-      // description: "Didn't see the tallest wave on a rainy day?",
+      description: "Crafted with care, each trip reflects your story.",
       imageUrl: "/assest/HeroImages/ladakh.webp",
     },
   ];
 
   // Auto-play carousel effect
   useEffect(() => {
+    if (manualOverride) return;
+
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % activities.length);
-      setSelectedActivity((prevSlide) => (prevSlide + 1) % activities.length);
-    }, 4000); // Change slide every 4 seconds
+      setCurrentSlide((prev) => (prev + 1) % activities.length);
+      setSelectedActivity((prev) => (prev + 1) % activities.length);
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [activities.length, manualOverride]);
 
   const handleActivityClick = (index) => {
     setSelectedActivity(index);
     setCurrentSlide(index);
+    setManualOverride(true); // Stop auto-rotation
   };
 
   return (
-
-    <div className="hero-container relative xs:max-h-[93.0vh] md:min-h-screen w-full overflow-hidden">
-
     <div className="hero-container relative xs:max-h-[93vh] md:min-h-screen w-full overflow-hidden">
-
       {/* Hero Section */}
       <div className="hero-background-wrapper relative h-screen">
         <AnimatePresence mode="wait">
@@ -69,11 +69,7 @@ const Hero = () => {
               </div>
 
               {/* Text Content */}
-              <div
-                className="hero-content absolute top-1/2 left-4 sm:left-8 md:left-16 transform -translate-y-1/2 text-white max-w-md z-10
-             xs:-translate-y-[210%] xm:-translate-y-[150%]"
-              >
-                {" "}
+              <div className="hero-content absolute top-[40%] sm:top-1/2 left-4 sm:left-8 md:left-16 transform -translate-y-1/2 text-white max-w-md z-10">
                 <motion.h2
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -95,23 +91,20 @@ const Hero = () => {
       </div>
 
       {/* Activities Tab */}
-      <div
-        className="hero-activities-wrapper absolute bottom-0 left-0 lg:left-[70%] right-0 flex justify-center px-4 pb-8 z-20
-      "
-      >
+      <div className="hero-activities-wrapper absolute bottom-0 left-0 lg:left-[70%] right-0 flex justify-center px-4 pb-8 z-20">
         <div className="hero-activities-container bg-white/20 backdrop-blur-md rounded-2xl shadow-lg w-full max-w-xs">
           <div className="hero-activities-header p-4 relative">
             <h2 className="text-lg font-semibold text-white mb-2">
               What Excites You Most?
             </h2>
             <div className="w-12 h-0.5 bg-white"></div>
-            {/* Hidden on mobile, shows ID outside the div */}
             <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/70 text-sm">
               <span className="hidden sm:inline">
                 {activities[selectedActivity].id}
               </span>
             </div>
           </div>
+
           <div className="hero-activities-list">
             {activities.map((activity, index) => (
               <div

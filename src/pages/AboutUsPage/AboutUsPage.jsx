@@ -119,7 +119,7 @@ const AboutUsPage = () => {
       {/* Main About Section */}
       <div
         ref={ref}
-        className="min-h-[80vh] bg-white pt-16 pb-6 px-4 flex items-center justify-center"
+        className="min-h-[80vh] bg-white pt-16  px-4 flex items-center justify-center"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -180,44 +180,43 @@ const AboutUsPage = () => {
         </motion.div>
       </div>
 
-    {/* Team Section - Stacked Vertically */}
-   
-     <section className="bg-white py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
-          Meet Our Team
-        </h2>
+      {/* Team Section - Stacked Vertically */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {teamMembers.map((member, idx) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
-            >
-              {/* Always show image */}
-        <div className="w-full aspect-square md:aspect-auto md:h-80 bg-white overflow-hidden rounded-t-2xl flex items-center justify-center">
-  <img
-    src={member.image}
-    alt={member.name}
-    className="object-contain md:object-cover object-center w-full h-full"
-  />
-</div>
+      <section className="bg-white  px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+            Meet Our Team
+          </h2>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {teamMembers.map((member, idx) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2, duration: 0.6 }}
+                className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
+              >
+                {/* Always show image */}
+                <div className="w-full aspect-square md:aspect-auto md:h-80 bg-white overflow-hidden rounded-t-2xl flex items-center justify-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="object-contain md:object-cover object-center w-full h-full"
+                  />
+                </div>
 
-              {/* Mobile content: show always below image */}
-              <div className="p-4 text-center md:hidden">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-gray-600 font-medium mb-2">
-                  {member.role}
-                </p>
-                <p className="text-sm text-gray-700">{member.description}</p>
-              </div>
+                {/* Mobile content: show always below image */}
+                <div className="p-4 text-center md:hidden">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 font-medium mb-2">
+                    {member.role}
+                  </p>
+                  <p className="text-sm text-gray-700">{member.description}</p>
+                </div>
 
                 {/* Desktop content: show on hover */}
                 <div className="absolute inset-0 hidden md:flex flex-col justify-end bg-black bg-opacity-70 text-white p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
