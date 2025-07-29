@@ -134,13 +134,11 @@ const AboutUs = () => {
 
   return (
     <>
-      <section className="w-full relative">
+      <section className="w-full relative overflow-hidden">
         <img
-          // src="/assest/chandratal/Chandratal.webp"
-          // src="/assest/winter_spiti/02.webp"
           src="/assest/delhi_shimla/01.webp"
-          alt="Outback travel across desert"
-          className="w-full h-[60vh] object-cover"
+          alt="View of Shimla at night"
+          className="w-full h-[50vh] max-h-[80vh]  object-cover sm:w-full"
         />
       </section>
 
@@ -175,8 +173,8 @@ const AboutUs = () => {
                   key={section}
                   onClick={() => setActiveSection(section)}
                   className={`px-4 py-2 rounded-full transition-all ${activeSection === section
-                      ? "bg-orange-500 text-white"
-                      : "bg-orange-100 text-orange-800"
+                    ? "bg-orange-500 text-white"
+                    : "bg-orange-100 text-orange-800"
                     }`}
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -536,9 +534,9 @@ const AboutUs = () => {
                 className="w-full h-[200px] object-cover"
               />
               <div className="bg-[#f15b29] text-white p-4 flex flex-col justify-between grow">
-                 <h5 className="font-bold text-lg mb-2">{feature.icon}</h5>
+                <h5 className="font-bold text-lg mb-2">{feature.icon}</h5>
                 <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-               
+
                 <p className="text-sm">{feature.description}</p>
               </div>
             </div>
