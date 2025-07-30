@@ -130,8 +130,6 @@ const AboutUs = () => {
     },
   ];
 
-
-
   return (
     <>
       <section className="w-full relative overflow-hidden">
@@ -200,51 +198,6 @@ const AboutUs = () => {
         </motion.div>
       </div>
 
-      {/* <motion.section
-        ref={sunilRef}
-        className="bg-[#fdfaf9] py-12 px-6 w-full mt-12"
-        initial={{ opacity: 0, y: 50 }}
-        animate={sunilInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <motion.div
-            className="md:w-1/2"
-            initial={{ opacity: 0, x: -40 }}
-            animate={sunilInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-              Meet Sunil – The Heart of Every Journey
-            </h2>
-            <p className="text-gray-800 leading-relaxed mb-6">
-              Sunil, the founder, is more than just a travel planner; he’s your
-              personal travel companion. With a passion for India’s rich culture
-              and landscapes, Sunil ensures every journey is tailored to your
-              desires. He’s available 24/7, offering personalized attention and
-              often travels alongside clients, making your experience truly
-              unforgettable.
-            </p>
-            <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 rounded-full transition duration-200">
-              Plan Your Trip With Us →
-            </button>
-          </motion.div>
-
-          <motion.div
-            className="md:w-1/3"
-            initial={{ opacity: 0, x: 40 }}
-            animate={sunilInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <img
-              src="/assest/Team/sunil.jpg"
-              alt="Portrait of Sunil"
-              className="rounded-lg shadow-md w-full"
-            />
-          </motion.div>
-        </div>
-      </motion.section> */}
-
       <motion.section
         ref={sunilRef}
         className=" py-2 px-6 w-full mt-12"
@@ -289,115 +242,6 @@ const AboutUs = () => {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* <section className="px-6 py-16 bg-white max-w-5xl mx-auto space-y-12">
-        <div className="space-y-4">
-          <img
-            src="/assest/Nature/mountains.webp"
-            alt="Mountains"
-            className="w-full h-[400px] rounded-xl"
-          />
-          <h2 className="text-xl sm:text-2xl font-semibold">
-            Why Choose Better Bagpacking India?
-          </h2>
-          <p className="text-gray-700">
-            Unlike big travel agencies that rely on third-party vendors, Better
-            Bagpacking India ensures a fully personalized, hassle-free, and
-            immersive experience.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          <img
-            src="/assest/Nature/beach.avif"
-            alt="Beach"
-            className="w-full h-[300px] rounded-xl"
-          />
-          <h3 className="text-lg sm:text-xl font-semibold">
-            End-to-End Travel Solutions – We Handle Everything!
-          </h3>
-          <p className="text-gray-700">
-            From the moment you decide to travel till you're safely back home,
-            we take care of every little detail so you can focus on enjoying the
-            journey.
-          </p>
-          <ul className="space-y-2 text-gray-700">
-            <li>☑ Flight & Train Bookings – No stress, just smooth travels.</li>
-            <li>
-              ☑ Hotel & Homestay Arrangements – Handpicked stays that match your
-              vibe.
-            </li>
-            <li>
-              ☑ Road Travel & Transfers – Safe & comfortable transport
-              solutions.
-            </li>
-            <li>
-              ☑ Local Food & Culinary Experiences – Savor authentic flavors
-              curated by us.
-            </li>
-            <li>
-              ☑ Permits & Travel Documentation – Hassle-free permissions & legal
-              requirements.
-            </li>
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <img
-            src="/assest/Nature/van.jpg"
-            alt="Travel Van"
-            className="w-full h-[500px] rounded-xl"
-          />
-          <h3 className="text-lg sm:text-xl font-semibold">
-            Led by Experts, Not Vendors
-          </h3>
-          <p className="text-gray-700">
-            Unlike travel companies that outsource services, we are personally
-            involved in every journey. Our founder, Ethan & his expert team
-            handle everything hands-on to ensure a seamless, safe, and
-            unforgettable experience.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          <img
-            src="/assest/Nature/lake.jpg"
-            alt="Lake view"
-            className="w-full h-[400px] rounded-xl"
-          />
-          <h3 className="text-lg sm:text-xl font-semibold">
-            Authentic & Immersive Travel Experiences
-          </h3>
-          <p className="text-gray-700">
-            We don’t believe in generic tours. Every trip is designed for deep
-            cultural experiences, real connections, and meaningful adventures.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          <img
-            src="/assest/Nature/support.png"
-            alt="Support"
-            className="w-full h-[400px] rounded-xl"
-          />
-          <h3 className="text-lg sm:text-xl font-semibold">
-            24/7 Assistance & On-Ground Support
-          </h3>
-          <p className="text-gray-700">
-            Lost luggage? Need last-minute changes? Want to explore an unplanned
-            spot? We’re available round the clock to make sure your journey
-            stays smooth and stress-free.
-          </p>
-          <p className="text-gray-700">
-            Better Bagpacking India is not just a travel company—it’s your
-            trusted travel partner, ensuring a comfortable, memorable, and
-            authentic experience.
-          </p>
-          <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-            Let's Plan Your Journey
-          </button>
-        </div>
-      </section> */}
 
       <section className="px-6 py-16 bg-white max-w-6xl mx-auto space-y-16">
         <div className="text-center space-y-2">
@@ -457,66 +301,6 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* <div
-        className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
-        style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}
-      >
-        <div className="layout-container flex h-full grow flex-col">
-          <div className="px-40 flex flex-1 justify-center py-5">
-            <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <div>
-                <div className="p-4">
-                  <div
-                    className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-lg items-center justify-center p-4"
-                    style={{
-                      backgroundImage:
-                        'linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKoBcr3sgBuqMtHfFoo4ZK8sllC_fNY3XJGRbS9VtbaRGgzNoTUpGGIyT7F8TDA466FkYEJirXn92pVStv5qw9XTtS-cyWCd5EZqMMTCSKhQoK8LDQCUOSQ7axKcYJOo0Hy9he0VKY7kmwglLmpNDW7fhyGnkTcS-w9jS8tyhCeo81G23kJcA0t7ep9CkMv4sC89_jfPVxLstZuiTJjETVEOLmtG7w3hRVGYyIRcfCpJUYzptwNDcBi29c5GZ3GEwDmTpXs_jfOsg")',
-                    }}
-                  >
-                    <div className="flex flex-col gap-2 text-center">
-                      <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] sm:text-5xl">
-                        Explore India with EXCeLLeC
-                      </h1>
-                      <h2 className="text-white text-sm font-normal leading-normal sm:text-base">
-                        Immersive journeys, cultural exchange, continuous
-                        learning, balanced leisure, community engagement, and
-                        lasting memories.
-                      </h2>
-                    </div>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 sm:h-12 sm:px-5 bg-[#1990e5] text-white text-sm font-bold leading-normal tracking-[0.015em] sm:text-base">
-                      <span className="truncate">Discover Your Journey</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <section className="px-4 py-8">
-                <h2 className="text-[#111518] text-xl font-bold mb-4">
-                  Our Travel Philosophy: EXCeLLeC
-                </h2>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4">
-                  {features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col gap-3 p-4 border border-[#dce1e5] rounded-lg bg-white"
-                    >
-                      <div className="text-[#111518]">{feature.icon}</div>
-                      <h3 className="text-base font-bold text-[#111518] leading-tight">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-[#637888]">
-                        {feature.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-      
-              </section>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <section className="bg-white px-4 py-16">
         <h2 className="text-center text-3xl font-bold text-[#bf4e1e] mb-12 tracking-wide">
           OUR PHILOSOPHY – EXCeLLeC
@@ -533,7 +317,7 @@ const AboutUs = () => {
                 alt={feature.title}
                 className="w-full h-[200px] object-cover"
               />
-              <div className="bg-[#f15b29] text-white p-4 flex flex-col justify-between grow">
+              <div className="bg-[#A5573B] text-[#F5F5DC] p-4 flex flex-col justify-between grow">
                 <h5 className="font-bold text-lg mb-2">{feature.icon}</h5>
                 <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
 
@@ -544,17 +328,6 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* <div className="px-6 md:px-40 py-5">
-        <div className="max-w-[960px] mx-auto">
-          <div className="p-4">
-            <p className="text-[#111418] text-[32px] font-bold leading-tight min-w-72">
-              Explore Itineraries
-            </p>
-          </div>
-
-        
-        </div>
-      </div> */}
       <ItineraryCard />
     </>
   );
