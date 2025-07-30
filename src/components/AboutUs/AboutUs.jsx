@@ -137,6 +137,7 @@ const AboutUs = () => {
           src="/assest/delhi_shimla/01.webp"
           alt="View of Shimla at night"
           className="w-full h-[50vh] max-h-[80vh]  object-cover sm:w-full"
+          loading="lazy"
         />
       </section>
 
