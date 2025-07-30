@@ -58,7 +58,7 @@ const ItineraryCard = () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          "https://travel-backend-pearl.vercel.app//api/trips"
+          "https://travel-backend-pearl.vercel.app/api/trips"
         );
         setTrips(res.data);
       } catch (err) {
