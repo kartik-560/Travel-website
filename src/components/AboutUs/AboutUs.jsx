@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { MapPin, Mountain, Globe, Compass } from "lucide-react";
@@ -11,6 +12,7 @@ import {
   FaCamera,
 } from "react-icons/fa";
 import ItineraryCard from "../itineraryCard/ItineraryCard";
+import Photos from "../Gallery/Photos"; 
 
 const AboutUs = () => {
   const [activeSection, setActiveSection] = useState("story");
@@ -329,6 +331,8 @@ const AboutUs = () => {
       </section>
 
       <ItineraryCard />
+       <Photos/>
+    
     </>
   );
 };
