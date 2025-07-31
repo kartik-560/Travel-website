@@ -17,7 +17,7 @@ function TravelItineraryDetail() {
       try {
         setLoading(true);
         const res = await axios.get(
-          `https://travel-backend-0cb0.onrender.com/api/trips/${id}`
+          `https://travel-backend-pearl.vercel.app/api/trips/${id}`
         );
         setTrip(res.data);
       } catch (err) {

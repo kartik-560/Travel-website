@@ -22,7 +22,7 @@ const ContactForm = () => {
   console.log("📤 Submitting form data:", formData); // ✅ Helpful debug log
 
   try {
-    const response = await fetch("http://localhost:5000/api/trips/contact", {
+    const response = await fetch("https://travel-backend-pearl.vercel.app/api/trips/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

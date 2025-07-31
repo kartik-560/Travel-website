@@ -51,7 +51,7 @@ const TripCards = () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          "https://travel-backend-0cb0.onrender.com/api/trips"
+          "https://travel-backend-pearl.vercel.app/api/trips"
         );
         setTrips(res.data);
       } catch (err) {
