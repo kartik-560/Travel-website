@@ -1,67 +1,75 @@
-import './Photos.css'
-const Photos = () => {
-  return (
+import { useEffect, useState } from "react";
+import "./Photos.css";
 
+const Photos = () => {
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await fetch(
+          "https://travel-backend-pearl.vercel.app/api/photos"
+        );
+        const data = await res.json();
+        const allImages = data.flatMap((entry) => entry.images || []);
+        setImages(allImages);
+      } catch (err) {
+        console.error("Failed to fetch images:", err);
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-xl font-medium">
+        Loading photos...
+      </div>
+    );
+  }
+
+  return (
     <div className="">
       <h2 className="text-2xl sm:text-3xl flex justify-center gap-2 text-center font-semibold mb-5">
-        Photo Gallery <span className="flex items-center">(Better Backpacking)</span>
+        Photo Gallery{" "}
+        <span className="flex items-center">(Better Backpacking)</span>
       </h2>
 
-
       <div className="hidden sm:block">
-        <div className="box overflow-x-scroll scrollbar-hide space-x-1 px-4">
-          <img src={"/assest/Group/G1.jpeg"} alt='' />
-          <img src={"/assest/Group/G2.jpeg"} alt='' />
-          <img src={"/assest/Group/G3.jpeg"} alt='' />
-          <img src={"/assest/Group/G4.jpeg"} alt='' />
-          <img src={"/assest/Group/G5.jpeg"} alt='' />
-          <img src={"/assest/Group/G6.jpeg"} alt='' />
-          <img src={"/assest/Group/G7.jpeg"} alt='' />
-          <img src={"/assest/Group/G8.jpeg"} alt='' />
-          <img src={"/assest/Group/G9.jpeg"} alt='' />
-          <img src={"/assest/Group/G10.jpeg"} alt='' />
-          <img src={"/assest/Group/G11.jpeg"} alt='' />
-          <img src={"/assest/Group/G12.jpeg"} alt='' />
-          <img src={"/assest/Group/G13.jpeg"} alt='' />
-          <img src={"/assest/Group/G14.jpeg"} alt='' />
-          <img src={"/assest/Group/G15.jpeg"} alt='' />
-          <img src={"/assest/Group/G16.jpeg"} alt='' />
-          <img src={"/assest/Group/G17.jpeg"} alt='' />
-          <img src={"/assest/Group/G18.jpeg"} alt='' />
-          <img src={"/assest/Group/G19.jpeg"} alt='' />
-          <img src={"/assest/Group/G20.jpeg"} alt='' />
-          <img src={"/assest/Group/G21.jpeg"} alt='' />
-          <img src={"/assest/Group/G22.jpeg"} alt='' />
-          <img src={"/assest/Group/G23.jpeg"} alt='' />
-          <img src={"/assest/Group/G24.jpeg"} alt='' />
-          <img src={"/assest/Group/G25.jpeg"} alt='' />
-          <img src={"/assest/Group/G26.jpeg"} alt='' />
-          <img src={"/assest/Group/G27.jpeg"} alt='' />
-          <img src={"/assest/Group/G28.jpeg"} alt='' />
-          <img src={"/assest/Group/G29.jpeg"} alt='' />
+        <div className=" box overflow-x-auto scrollbar-hide  px-4 ">
+            <div className="flex gap-2 w-max">
+          {images.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`Gallery ${i + 1}`}
+              className="w-60 h-40 object-cover flex-shrink-0 rounded"
+            />
+          ))}
+          </div>
         </div>
       </div>
 
-      {/* ✅ Mobile View - only on small screens */}
       <div className="block sm:hidden overflow-x-auto px-4 mt-4">
         <div className="flex space-x-4 pb-4">
-          {Array.from({ length: 29 }, (_, i) => i + 1).map((n) => (
+          {images.map((img, i) => (
             <img
-              key={n}
-              src={`/assest/Group/G${n}.jpeg`}
+              key={i}
+              src={img}
               className="w-60 h-40 object-cover rounded-lg shadow-md"
-              alt=''
+              alt={`Gallery ${i + 1}`}
             />
           ))}
         </div>
       </div>
     </div>
+  );
+};
 
 
 
-  )
-
-}
-export default Photos
-
-
+export default Photos;
