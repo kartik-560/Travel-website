@@ -19,6 +19,7 @@ import { Helmet } from "react-helmet";
 import TravelItineraryDetail from "../../pages/Itinerary_details_page/TravelItineraryDetail";
 import AboutUs from "../AboutUs/AboutUs";
 
+
 function Home() {
   return (
     <Router>
@@ -53,7 +54,7 @@ function Home() {
               {/* <Hero /> */}
               <Hero1 />
               <NatureCard />
-              <AboutUsPage />
+              <AboutUs />
               <Services />
               <ItineraryCard />
               <Banner />
@@ -164,7 +165,7 @@ function Home() {
           element={
             <>
               <Header1 />
-              <AboutUs />
+              <AboutUsPage />
             </>
           }
         />

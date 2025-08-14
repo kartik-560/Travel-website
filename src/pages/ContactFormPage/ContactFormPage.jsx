@@ -123,7 +123,7 @@ const handleSubmit = async (e) => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder="Your Travel Vision"
+              placeholder="Where do you want to travel"
               className="w-full p-3 border border-orange-200 rounded-md h-32 focus:ring-2 focus:ring-orange-300 transition"
             />
 
