@@ -64,7 +64,7 @@ const Hero1 = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1 }}
-                  className="text-3xl sm:text-5xl font-bold mb-4 font-borel"
+                  className="text-3xl sm:text-5xl font-bold mb-4 font-Arial"
                 >
                   Experience India Like Never Before –{" "}
                   <br className="hidden sm:block" />
@@ -75,22 +75,22 @@ const Hero1 = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2 }}
-               className="text-[22px] sm:text-[28px] md:text-[32px] max-w-2xl mb-6 font-poppins"
+               className="text-[22px] sm:text-[28px] md:text-[32px] max-w-2xl mb-6 font-Arial"
 
                 >
                   Curated Travel Authentic Experiences Personalized Journeys
                 </motion.p>
 
-                <motion.p
+                {/* <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.4 }}
-                   className="text-[20px] sm:text-[18px] max-w-2xl text-white/90 mb-8"
+                   className="text-[20px] sm:text-[18px] max-w-2xl text-white/90 mb-8 font-Arial"
 
                 >
-                  🌍 Led by Experts | 24/7 Personalized Assistance | Immersive
+                   Led by Experts | 24/7 Personalized Assistance | Immersive
                   Cultural Exchange
-                </motion.p>
+                </motion.p> */}
 
                 <motion.button
                   onClick={() => navigate("/itinerary")}

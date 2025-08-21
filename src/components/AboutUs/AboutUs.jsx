@@ -8,23 +8,23 @@ const teamMembers = [
   {
     name: "Sunil Sharma",
     role: "Co-founder",
-    image: "/assest/Team/sunil.jpg",
+    image: "/assest/Team/sunil1.jpg",
     description:
-      "With a vision to revolutionize the tourism industry, Sunil co-founded Better Backpacking India to make travel more accessible, transparent, and customer-friendly. His goal is to provide travelers with not just a trip, but an immersive, exhilarating, and unforgettable experience.",
+      "Visionary, licensed travel guide, and your partner on the road.",
   },
   {
     name: "Aashima Kanwar",
     role: "Operations Executive",
     image: "/assest/Team/aashima.jpg",
     description:
-      "With four years of experience in sales and team leadership, Aashima curates personalized travel experiences with care and dedication. Hailing from the serene landscapes of Himachal Pradesh, she brings a deep appreciation for nature and exploration to every journey she plans.",
+      "The detail wizard, ensuring each trip is smooth and personalized.",
   },
   {
     name: "Neetima",
     role: "Certified Mountaineer & Trek Guide",
     image: "/assest/Team/neetima.jpg",
     description:
-      "A certified mountaineer, skier (ABVIMAS), and licensed HP Tourism guide, Neetima has led adventurers through the mountains for six years. Born amidst nature in a humble cow shelter and inspired by her uncle—an Everest summiteer—she now empowers fellow trekkers, especially women, to discover the wild with courage and joy.",
+      "Certified mountaineer, skier, and licensed guide—helping travelers (especially women) embrace the thrill of the mountains.",
   },
   {
     name: "Sanjay Chauhan",
@@ -44,17 +44,13 @@ const AboutUs = () => {
     story: (
       <div className="space-y-6 flex flex-col justify-start text-justify">
         <p>
-          In 2012, I moved to Shimla to pursue my studies, facing financial
-          challenges as a middle-class student. To support myself, I joined my
-          first travel company, The Great Escape Routes, in 2014. This
-          experience was invaluable, serving as a tourism school where I learned
-          from the owner and guided foreign tourists around Himachal.
+          Better Bagpacking India began with a simple belief: travel should feel personal, meaningful, and transformative.
         </p>
         <p>
-          After completing my university studies in 2018, I worked with Green
-          Lion Travel as a road trip coordinator, leading tours across 20 states
-          in India. My journey in tourism has fueled my dream of establishing my
-          own travel company.
+          In 2012, our founder <b>Sunil Sharma </b>was balancing studies and a part-time job in Shimla when he discovered the joy of hidden trails, local conversations, and the heartbeat of India beyond tourist maps. What started as a spark turned into a vision—crafting journeys where travelers don’t just visit India, they belong here.
+        </p>
+        <p>
+          Today, every trip we design is rooted in authenticity, connecting you with India’s landscapes, traditions, and people in ways that leave you with stories for a lifetime.
         </p>
       </div>
     ),
@@ -124,9 +120,9 @@ const AboutUs = () => {
           {/* Image Section */}
           <div className="w-full md:w-1/2 h-[300px]  overflow-hidden rounded-3xl bg-red-500">
             <img
-              src="/assest/icon.webp"
+              src="/assest/bg.png"
               alt="Travel"
-              className="w-full h-[300px]  object-cover"
+              className="w-full h-[300px]  object-cover object-center "
             />
           </div>
 

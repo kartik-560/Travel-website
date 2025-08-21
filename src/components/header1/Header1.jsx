@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Header1 = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = ["Home", "About","Itinerary", "Testimonials", "Contact"];
+  const navItems = ["Home", "About","Itinerary","Contact"];
 
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE] shadow-lg">

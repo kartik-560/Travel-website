@@ -22,20 +22,15 @@ const AboutUsPage = () => {
 
   const sections = {
     story: (
-      <div className="space-y-6 flex flex-col justify-start text-justify">
+     <div className="space-y-6 flex flex-col justify-start text-justify">
         <p>
-          Better Bagpacking India was born out of passion, adventure, and the
-          love for real, immersive travel. In 2012, our founder Sunil took his
-          first step into the world of travel while balancing his studies and a
-          part-time job in Shimla. From exploring hidden trails to experiencing
-          India’s rich culture firsthand, he realized that travel was more than
-          just destinations—it was about stories, connections, and experiences
-          that last a lifetime.
+          Better Bagpacking India began with a simple belief: travel should feel personal, meaningful, and transformative.
         </p>
         <p>
-          Today, we are proud to have crafted countless journeys that allow
-          travelers to connect with India’s landscapes, people, and traditions
-          in the most authentic way possible.
+          In 2012, our founder <b>Sunil Sharma </b>was balancing studies and a part-time job in Shimla when he discovered the joy of hidden trails, local conversations, and the heartbeat of India beyond tourist maps. What started as a spark turned into a vision—crafting journeys where travelers don’t just visit India, they belong here.
+        </p>
+        <p>
+          Today, every trip we design is rooted in authenticity, connecting you with India’s landscapes, traditions, and people in ways that leave you with stories for a lifetime.
         </p>
       </div>
     ),
@@ -156,9 +151,9 @@ const AboutUsPage = () => {
         >
           <div className="w-full md:w-1/2 h-[300px] overflow-hidden rounded-3xl bg-red-500">
             <img
-              src="/assest/icon.webp"
+              src="/assest/bg.png"
               alt="Travel"
-              className="w-full h-[300px] object-cover"
+              className="w-full h-[300px] object-cover object-center"
             />
           </div>
 
@@ -305,7 +300,7 @@ const AboutUsPage = () => {
 
       <section className="bg-white px-4 py-16">
         <h2 className="text-center text-3xl font-bold text-[#bf4e1e] mb-12 tracking-wide">
-          OUR PHILOSOPHY – EXCeLLeC
+          OUR PHILOSOPHY – EXCELLENCE
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
