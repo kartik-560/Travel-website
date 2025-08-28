@@ -18,6 +18,7 @@ import ScrollToTop from "../ScrollToTop/ScrollToTop";
 import { Helmet } from "react-helmet";
 import TravelItineraryDetail from "../../pages/Itinerary_details_page/TravelItineraryDetail";
 import AboutUs from "../AboutUs/AboutUs";
+import TestimonialsPage from "../../pages/TestimonialsPage/TestimonialsPage";
 
 
 function Home() {
@@ -90,7 +91,7 @@ function Home() {
                 />
               </Helmet>
               <Header1 />
-              <Testimonial />
+              <TestimonialsPage />
             </>
           }
         />
