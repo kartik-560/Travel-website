@@ -6,9 +6,16 @@ import { useRef } from "react";
 
 const teamMembers = [
   {
+    name: "Sunil Kumar",
+    role: "Founder",
+    image: "/assest/Team/sunil-Kumar.jpg",
+    description:
+      "Pursued Masters in Tourism from IGNOU, licensed tour operator, German language enthusiast & a certified mountaineer.",
+  },
+  {
     name: "Sunil Sharma",
     role: "Co-founder",
-    image: "/assest/Team/sunil1.jpg",
+    image: "/assest/Team/sunil.jpg",
     description:
       "Visionary, licensed travel guide, and your partner on the road.",
   },
