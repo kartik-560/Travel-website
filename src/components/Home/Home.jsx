@@ -121,7 +121,7 @@ function Home() {
                 />
               </Helmet>
               <Header1 />
-              <TripCards />
+              <TripCards mode="all"/>
             </>
           }
         />

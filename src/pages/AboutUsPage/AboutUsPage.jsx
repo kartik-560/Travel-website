@@ -326,7 +326,7 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      <ItineraryCard />
+      <ItineraryCard mode="about" />
        <Photos/>
     
     </>
