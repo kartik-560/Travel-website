@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "Sunil Kumar",
     role: "Founder",
-    image: "/assest/Team/sunil-Kumar.jpg",
+    image: "/assest/Team/sunilKumar.jpg",
     description:
       "Pursued Masters in Tourism from IGNOU, licensed tour operator, German language enthusiast & a certified mountaineer.",
   },
@@ -38,7 +38,7 @@ const teamMembers = [
     role: "Experienced Driver",
     image: "/assest/Team/sanjay.jpg",
     description:
-      "With over 25 years of experience driving in mountain terrain—from Kinnaur to Leh and Uttarakhand—Sanjay is the silent force behind our safe journeys. A non-smoker and teetotaler, his calm demeanor and road wisdom ensure a smooth ride every time.",
+      "Sanjay has over 25 years of experience driving in mountainous regions like Kinnaur, Leh, and Uttarakhand.",
   },
 ];
 

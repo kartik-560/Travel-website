@@ -202,7 +202,8 @@ const AboutUsPage = () => {
         animate={sunilInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 mt-[-40px] md:mt-[-80px]">
+
           <motion.div
             className="md:w-1/2 text-center md:text-left"
             initial={{ opacity: 0, x: -40 }}
@@ -232,7 +233,7 @@ const AboutUsPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <img
-              src="/assest/Team/sunil.jpg"
+              src="/assest/Team/sunilkumar.jpg"
               alt="Portrait of Sunil"
               className="rounded-xl shadow-lg w-full max-w-sm object-cover"
             />
