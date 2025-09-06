@@ -40,7 +40,7 @@ const ChooseUs = () => {
     Why People ❤️ Choose Us
   </h2>
   <p className="text-gray-600 mt-2 text-sm sm:text-base md:text-lg">
-    Experience the best with TrekPanda
+    Experience the best with Better Backpacking India
   </p>
 </div>
 
