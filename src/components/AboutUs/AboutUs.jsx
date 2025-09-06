@@ -31,7 +31,7 @@ const teamMembers = [
     role: "Certified Mountaineer & Trek Guide",
     image: "/assest/Team/neetima.jpg",
     description:
-      "Certified mountaineer, skier, and licensed guide—helping travelers (especially women) embrace the thrill of the mountains.",
+      "Certified mountaineer, skier, and licensed guide, helping travelers (especially women) embrace the thrill of the mountains.",
   },
   {
     name: "Sanjay Chauhan",
@@ -54,7 +54,7 @@ const AboutUs = () => {
           Better Bagpacking India began with a simple belief: travel should feel personal, meaningful, and transformative.
         </p>
         <p>
-          In 2012, our founder <b>Sunil Sharma </b>was balancing studies and a part-time job in Shimla when he discovered the joy of hidden trails, local conversations, and the heartbeat of India beyond tourist maps. What started as a spark turned into a vision—crafting journeys where travelers don’t just visit India, they belong here.
+          In 2012, our founder <b>Sunil Kumar </b>was balancing studies and a part-time job in Shimla when he discovered the joy of hidden trails, local conversations, and the heartbeat of India beyond tourist maps. What started as a spark turned into a vision—crafting journeys where travelers don’t just visit India, they belong here.
         </p>
         <p>
           Today, every trip we design is rooted in authenticity, connecting you with India’s landscapes, traditions, and people in ways that leave you with stories for a lifetime.

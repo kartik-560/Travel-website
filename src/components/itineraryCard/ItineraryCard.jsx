@@ -207,17 +207,14 @@ const ItineraryCard = ({ mode = "about" }) => {
           <div key={category} className="space-y-4">
             <h3 className="text-2xl font-semibold text-gray-800">{category}</h3>
 
-            {/* grid: 1 col mobile, 2 cols md, 3 cols lg */}
+         
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {tripsInCategory.map((trip, i) => {
-                // ABOUT page: show 2 on mobile, 3 on desktop
-                // - i >= 3 → hide everywhere
-                // - i == 2 → hide on mobile, show from md+
-                // - i < 2 → show everywhere
+                
                 let visibility = "";
                 if (!showAll) {
-                  if (i >= 3) visibility = "hidden";            // hide all screens
-                  else if (i >= 2) visibility = "hidden md:block"; // hide on mobile, show md+
+                  if (i >= 3) visibility = "hidden";      
+                  else if (i >= 2) visibility = "hidden md:block"; 
                 }
 
                 return (
