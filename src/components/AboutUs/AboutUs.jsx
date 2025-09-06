@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "Sunil Kumar",
     role: "Founder",
-    image: "/assest/Team/sunilKumar.jpg",
+    image: "/assest/Team/sunilkumar.jpg",
     description:
       "Pursued Masters in Tourism from IGNOU, licensed tour operator, German language enthusiast & a certified mountaineer.",
   },
