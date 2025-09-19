@@ -125,11 +125,11 @@ const AboutUs = () => {
           className="max-w-6xl w-[90%] bg-white rounded-3xl flex flex-col md:flex-row"
         >
           {/* Image Section */}
-          <div className="w-full md:w-1/2 h-[300px]  overflow-hidden rounded-3xl bg-red-500">
+          <div className="w-full md:w-1/2 h-[20rem] md:h-[29rem]  overflow-hidden rounded-3xl bg-red-500">
             <img
               src="/assest/bg.png"
               alt="Travel"
-              className="w-full h-[300px]  object-cover object-center "
+              className="w-full h-[20rem] md:h-[29rem]  object-cover object-center "
             />
           </div>
 

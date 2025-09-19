@@ -19,7 +19,7 @@ const NatureCard = ({ animationStyle = 3 }) => {
     {
       id: 2,
       location: "Manali",
-      imageUrl: "/assest/Nature/dinning_snow.webp",
+      imageUrl: "/assest/Nature/dinning_snow.png",
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const NatureCard = ({ animationStyle = 3 }) => {
     {
       id: 4,
       location: "Shimla",
-      imageUrl: "/assest/Nature/valley.webp",
+      imageUrl: "/assest/Nature/valley.png",
     },
   ];
 

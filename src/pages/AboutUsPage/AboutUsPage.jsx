@@ -10,7 +10,7 @@ import {
   FaHandsHelping,
   FaCamera,
 } from "react-icons/fa";
-import Photos from "../../components/Gallery/GallerySections"; 
+import Photos from "../../components/Gallery/Photos"; 
 import ItineraryCard from "../../components/itineraryCard/ItineraryCard";
 
 const AboutUsPage = () => {
@@ -94,7 +94,7 @@ const AboutUsPage = () => {
       description:
         "Connect with communities, share stories, and embrace diversity.",
       icon: <FaUsers size={24} className="text-[#111518]" />,
-      image: "/assest/churdhar_trek/02.webp",
+      image: "/assest/Our_Philosophy/04.jpeg",
     },
     {
       title: "Continuous Learning",
@@ -108,34 +108,41 @@ const AboutUsPage = () => {
       description:
         "Find your rhythm with a mix of adventure, relaxation, and personal time.",
       icon: <FaSun size={24} className="text-[#111518]" />,
-      image: "/assest/churdhar_trek/image.png",
+      image: "/assest/Our_Philosophy/image.png",
     },
     {
       title: "Community Engagement",
       description:
         "Give back to the places you visit, leaving a positive impact.",
       icon: <FaHandsHelping size={24} className="text-[#111518]" />,
-      image: "/assest/yulla_kanda_trek/Yulla_Kanda_Lake.webp",
+      image: "/assest/Our_Philosophy/07.jpeg",
     },
     {
       title: "Lasting Memories",
       description:
         "Create unforgettable moments that stay with you long after you return.",
       icon: <FaCamera size={24} className="text-[#111518]" />,
-      image: "/assest/spiti circuit/group.jpg",
+      image: "/assest/Our_Philosophy/06.jpg",
     },
   ];
 
   return (
     <>
-      <section className="w-full relative overflow-hidden">
-        <img
-          src="/assest/delhi_shimla/03.webp"
-          alt="View of Shimla at night"
-          className="w-full h-[60vh] max-h-[80vh]  object-cover sm:w-full"
-          loading="lazy"
-        />
-      </section>
+     <section className="w-full relative overflow-hidden">
+  <img
+    src="/assest/delhi_shimla/06.png"
+    alt="View of Shimla at night"
+    className="w-full h-[60vh] max-h-[80vh] object-cover sm:w-full"
+    loading="lazy"
+  />
+
+  {/* Overlay text */}
+  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+    <h1 className="text-white text-3xl md:text-5xl font-bold text-center">
+      About Better Backpacking India
+    </h1>
+  </div>
+</section>
 
       <div
         ref={ref}
@@ -149,11 +156,11 @@ const AboutUsPage = () => {
           transition={{ duration: 0.6 }}
           className="max-w-6xl w-[90%] bg-white rounded-3xl flex flex-col md:flex-row"
         >
-          <div className="w-full md:w-1/2 h-[300px] overflow-hidden rounded-3xl bg-red-500">
+          <div className="w-full md:w-1/2 h-[20rem] md:h-[29rem]  overflow-hidden rounded-3xl bg-red-500">
             <img
               src="/assest/bg.png"
               alt="Travel"
-              className="w-full h-[300px] object-cover object-center"
+              className="w-full h-[20rem] md:h-[29rem]   object-cover object-center"
             />
           </div>
 
@@ -232,11 +239,12 @@ const AboutUsPage = () => {
             animate={sunilInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <img
-              src="/assest/Team/sunilkumar.jpg"
-              alt="Portrait of Sunil"
-              className="rounded-xl shadow-lg w-full max-w-sm object-cover"
-            />
+           <img
+  src="/assest/Team/sunilkumar.jpg"
+  alt="Portrait of Sunil"
+  className="rounded-xl shadow-lg w-full max-w-sm h-[500px] object-cover"
+/>
+
           </motion.div>
         </div>
       </motion.section>

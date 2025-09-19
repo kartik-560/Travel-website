@@ -137,7 +137,15 @@ const TestimonialsPage = () => {
       title: 'Certified Mountaineer & Trek Guide',
       image: '/assest/Team/neetima.jpg',
       bio: 'A certified mountaineer, skier (ABVIMAS), and licensed tourist guide (HP Tourism), Neetima has spent the past six years leading adventurers through the mountains. Born amidst nature in a humble cow shelter, she was inspired by her uncle, who summited the world’s highest peak in 1993. Living by her mother’s prophecy—marked by a mole on her foot that foretold endless exploration—she now guides fellow trekkers, especially women, helping them discover the thrill and serenity of the wild. With four mountain expeditions every month, she is dedicated to empowering others to conquer new heights.'
+    },
+    {
+      name: 'Sanjay Chauhan',
+      title: 'Experienced Driver',
+      image: '/assest/Team/sanjay.jpg',
+      bio: 'A professional driver having 25 years driving experience in the difficult mountain terrain i.e. Kinnaur,Spiti, Lahaul,Leh, Kashmir and Utrakhand. The best thing about him being a driver is that he is non-smoker and a teetotaler .'
     }
+
+
   ];
 
   return (
