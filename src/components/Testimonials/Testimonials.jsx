@@ -7,32 +7,40 @@ const Testimonials = () => {
   const [selectedModal, setSelectedModal] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Adventure Enthusiast",
-      image: ["/assest/winter_ladhak_road_trip/Leh.webp", "/assest/Nature/valley.webp", "/assest/buddha.webp"],
-      text: "My journey through the mountains of Nepal was life-changing. The local guides were incredibly friendly and knowledgeable, making my trek unforgettable.",
-      location: "Everest Base Camp Trek",
-      rating: 5,
-    },
-    {
-      name: "Michael Chen",
-      role: "Digital Nomad",
-      image: ["/assest/a_man_jumping.webp", "/assest/a_rock.webp"],
-      text: "Traveling while working remotely has always been my dream. Thanks to this service, I found amazing spots with reliable internet.",
-      location: "Bali Co-working Spaces",
-      rating: 5,
-    },
-    {
-      name: "Emma Thompson",
-      role: "Family Traveler",
-      image: ["/assest/van_couples.webp", "/assest/sunset.webp"],
-      text: "Traveling with three kids under 10 was surprisingly smooth. The family-friendly accommodations were perfect for our needs.",
-      location: "Japanese Cultural Tour",
-      rating: 5,
-    },
-  ];
+const testimonials = [
+  {
+    name: "Seranne",
+    role: "Traveler",
+    image: ["/assest/Enchanting_delhi_shimla/Himalaya.webp", "/assest/Enchanting_delhi_shimla/himalaya.png"],
+    text: "They say that this means good luck, and I wish you all the luck with everything. I am very grateful for everything you did for me. Without you, I couldn’t make this trip so good. Shukriya!!",
+    location: "Himalayas, India",
+    rating: 5
+  },
+  {
+    name: "Garlic Girls",
+    role: "Road Trippers",
+    image: ["/assest/Enchanting_delhi_shimla/Road_trip.png"],
+    text: "There are no bad people. Only good people, that do bad things. - Sunil, the wise (2019).",
+    location: "India Roadtrip, August 2019",
+    rating: 5
+  },
+  {
+    name: "Shivangini Chauhan",
+    role: "Traveler",
+    image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.png","/assest/Enchanting_delhi_shimla/himachal.png"],
+    text: "My recent trip to Spiti was incredible, not just because of the stunning location, but mainly due to the wonderful people I met along the way. Sunil Bhaiya's captivating Himachali stories added an extra layer of charm to the journey. Despite challenges like the lack of running water, it taught me the profound value of water in more ways than one. It feels like yesterday; Spiti, you are truly magnificent.",
+    location: "Spiti Valley, Himachal Pradesh",
+    rating: 5
+  },
+  {
+    name: "Madhuri",
+    role: "Pilgrim Traveler",
+    image: ["/assest/Enchanting_delhi_shimla/dwarka.png"],
+    text: "Traveling with mom to Dwarka, Somnath and Gir in Gujarat has been nothing but spectacular. Marvelous darshan to the temples and such warm hospitality made me grateful. Huge thanks to Sunil Bhai, who has always been by our side, taking special care of mom and ensuring everything went smoothly. Can’t thank you enough, Bhai, for being there.",
+    location: "Dwarka, Gujarat",
+    rating: 5
+  }
+];
 
   const TestimonialCard = ({ testimonial, index }) => {
     return (

@@ -10,7 +10,7 @@ import {
   FaHandsHelping,
   FaCamera,
 } from "react-icons/fa";
-import Photos from "../../components/Gallery/Photos"; 
+import Photos from "../../components/Gallery/Photos";
 import ItineraryCard from "../../components/itineraryCard/ItineraryCard";
 
 const AboutUsPage = () => {
@@ -22,15 +22,22 @@ const AboutUsPage = () => {
 
   const sections = {
     story: (
-     <div className="space-y-6 flex flex-col justify-start text-justify">
+      <div className="space-y-6 flex flex-col justify-start text-justify">
         <p>
-          Better Bagpacking India began with a simple belief: travel should feel personal, meaningful, and transformative.
+          Better Bagpacking India began with a simple belief: travel should feel
+          personal, meaningful, and transformative.
         </p>
         <p>
-          In 2012, our founder <b>Sunil Kumar </b>was balancing studies and a part-time job in Shimla when he discovered the joy of hidden trails, local conversations, and the heartbeat of India beyond tourist maps. What started as a spark turned into a vision—crafting journeys where travelers don’t just visit India, they belong here.
+          In 2012, our founder <b>Sunil Kumar </b>was balancing studies and a
+          part-time job in Shimla when he discovered the joy of hidden trails,
+          local conversations, and the heartbeat of India beyond tourist maps.
+          What started as a spark turned into a vision—crafting journeys where
+          travelers don’t just visit India, they belong here.
         </p>
         <p>
-          Today, every trip we design is rooted in authenticity, connecting you with India’s landscapes, traditions, and people in ways that leave you with stories for a lifetime.
+          Today, every trip we design is rooted in authenticity, connecting you
+          with India’s landscapes, traditions, and people in ways that leave you
+          with stories for a lifetime.
         </p>
       </div>
     ),
@@ -128,21 +135,21 @@ const AboutUsPage = () => {
 
   return (
     <>
-     <section className="w-full relative overflow-hidden">
-  <img
-    src="/assest/delhi_shimla/06.png"
-    alt="View of Shimla at night"
-    className="w-full h-[60vh] max-h-[80vh] object-cover sm:w-full"
-    loading="lazy"
-  />
+      <section className="w-full relative overflow-hidden">
+        <img
+          src="/assest/delhi_shimla/06.png"
+          alt="View of Shimla at night"
+          className="w-full h-[60vh] max-h-[80vh] object-cover sm:w-full"
+          loading="lazy"
+        />
 
-  {/* Overlay text */}
-  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-    <h1 className="text-white text-3xl md:text-5xl font-bold text-center">
-      About Better Backpacking India
-    </h1>
-  </div>
-</section>
+        {/* Overlay text */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+          <h1 className="text-white text-3xl md:text-5xl font-bold text-center">
+            About Better Backpacking India
+          </h1>
+        </div>
+      </section>
 
       <div
         ref={ref}
@@ -174,10 +181,11 @@ const AboutUsPage = () => {
                 <button
                   key={section}
                   onClick={() => setActiveSection(section)}
-                  className={`px-4 py-2 rounded-full transition-all ${activeSection === section
-                    ? "bg-orange-500 text-white"
-                    : "bg-orange-100 text-orange-800"
-                    }`}
+                  className={`px-4 py-2 rounded-full transition-all ${
+                    activeSection === section
+                      ? "bg-orange-500 text-white"
+                      : "bg-orange-100 text-orange-800"
+                  }`}
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
                 </button>
@@ -209,8 +217,7 @@ const AboutUsPage = () => {
         animate={sunilInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 mt-[-40px] md:mt-[-80px]">
-
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 mt-[-40px] md:mt-[-80px]">
           <motion.div
             className="md:w-1/2 text-center md:text-left"
             initial={{ opacity: 0, x: -40 }}
@@ -228,9 +235,11 @@ const AboutUsPage = () => {
               often travels alongside clients, making your experience truly
               unforgettable.
             </p>
-            <Link to="/itinerary"><button className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-              Plan Your Trip With Us →
-            </button></Link>
+            <Link to="/itinerary">
+              <button className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Plan Your Trip With Us →
+              </button>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -239,12 +248,11 @@ const AboutUsPage = () => {
             animate={sunilInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-           <img
-  src="/assest/Team/sunilkumar.jpg"
-  alt="Portrait of Sunil"
-  className="rounded-xl shadow-lg w-full max-w-sm h-[500px] object-cover"
-/>
-
+            <img
+              src="/assest/Team/sunilkumar.jpg"
+              alt="Portrait of Sunil"
+              className="rounded-xl shadow-lg w-full max-w-sm h-[500px] object-cover"
+            />
           </motion.div>
         </div>
       </motion.section>
@@ -335,8 +343,7 @@ const AboutUsPage = () => {
       </section>
 
       <ItineraryCard mode="about" />
-       <Photos/>
-    
+      <Photos />
     </>
   );
 };

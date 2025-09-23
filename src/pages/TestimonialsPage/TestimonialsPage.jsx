@@ -1,49 +1,71 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import RenderModal from '../../components/Testimonials/RenderModel';
 const TestimonialsPage = () => {
-  const [imageIndices, setImageIndices] = useState([0, 0, 0]);
+
   const [selectedModal, setSelectedModal] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Adventure Enthusiast",
-      image: ["/assest/sunset_mountains.webp", "/assest/valley.webp", "/assest/buddha.webp"],
-      text: "My journey through the mountains of Nepal was absolutely life-changing. The local guides provided by this travel service were not only knowledgeable but also incredibly friendly.",
-      location: "Everest Base Camp Trek",
+      name: "Seranne",
+      role: "Traveler",
+      image: ["/assest/Enchanting_delhi_shimla/Himalaya.webp", "/assest/Enchanting_delhi_shimla/himalaya.png"],
+      text: "They say that this means good luck, and I wish you all the luck with everything. I am very grateful for everything you did for me. Without you, I couldn’t make this trip so good. Shukriya!!",
+      location: "Himalayas, India",
       rating: 5
     },
     {
-      name: "Michael Chen",
-      role: "Digital Nomad",
-      image: ["/assest/a_man_jumping.webp", "/assest/a_rock.webp"],
-      text: "Working remotely while traveling has always been my dream, and this service made it possible. They helped me find perfect spots with reliable internet.",
-      location: "Bali Co-working Spaces",
+      name: "Garlic Girls",
+      role: "Road Trippers",
+      image: ["/assest/Enchanting_delhi_shimla/Road_trip.png"],
+      text: "There are no bad people. Only good people, that do bad things. - Sunil, the wise (2019).",
+      location: "India Roadtrip, August 2019",
       rating: 5
     },
     {
-      name: "Emma Thompson",
-      role: "Family Traveler",
-      image: ["/assest/van_couples.webp", "/assest/sunset.webp"],
-      text: "Traveling with three kids under 10 can be challenging, but our experience was incredibly smooth. The family-friendly accommodations were perfect.",
-      location: "Japanese Cultural Tour",
+      name: "Shivangini Chauhan",
+      role: "Traveler",
+      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.png","/assest/Enchanting_delhi_shimla/himachal.png"],
+      text: "My recent trip to Spiti was incredible, not just because of the stunning location, but mainly due to the wonderful people I met along the way. Sunil Bhaiya's captivating Himachali stories added an extra layer of charm to the journey. Despite challenges like the lack of running water, it taught me the profound value of water in more ways than one. It feels like yesterday; Spiti, you are truly magnificent.",
+      location: "Spiti Valley, Himachal Pradesh",
+      rating: 5
+    },
+    {
+      name: "Madhuri",
+      role: "Pilgrim Traveler",
+      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.png","/assest/Enchanting_delhi_shimla/gujrat.png"],
+      text: "Traveling with mom to Dwarka, Somnath and Gir in Gujarat has been nothing but spectacular. Marvelous darshan to the temples and such warm hospitality made me grateful. Huge thanks to Sunil Bhai, who has always been by our side, taking special care of mom and ensuring everything went smoothly. Can’t thank you enough, Bhai, for being there.",
+      location: "Dwarka, Gujarat",
       rating: 5
     }
   ];
+    const [imageIndices, setImageIndices] = useState(
+  () => Array(testimonials.length).fill(0)
+);
+  useEffect(() => {
+  setImageIndices(prev =>
+    Array(testimonials.length)
+      .fill(0)
+      .map((_, i) => (Number.isFinite(prev[i]) ? prev[i] : 0))
+  );
+}, [testimonials.length]);
 
-  const handleImageNavigation = useCallback((index, direction) => {
-    setImageIndices(prevIndices => {
-      const newIndices = [...prevIndices];
-      const imageCount = testimonials[index].image.length;
-      newIndices[index] = (newIndices[index] + direction + imageCount) % imageCount;
-      return newIndices;
-    });
-  }, [testimonials]);
+const handleImageNavigation = useCallback((index, direction) => {
+  setImageIndices(prev => {
+    const next = [...prev];
+    const imageCount = testimonials[index]?.image?.length ?? 0;
+    if (imageCount === 0) return next;
+    const current = Number.isFinite(next[index]) ? next[index] : 0;
+    next[index] = (current + direction + imageCount) % imageCount;
+    return next;
+  }); 
+}, [testimonials]);
 
   const TestimonialCard = ({ testimonial, index }) => {
     return (
@@ -67,7 +89,7 @@ const TestimonialsPage = () => {
             <img
               key={imgIndex}
               src={img}
-              alt={`${testimonial.name} - image ${imgIndex + 1}`}
+              alt={`${testimonial.name} (${testimonial.location})`}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 
                 ${imageIndices[index] === imgIndex ? 'opacity-100' : 'opacity-0'}`}
             />
@@ -113,7 +135,7 @@ const TestimonialsPage = () => {
     );
   };
 
-  const teamData = [
+const teamData = [
     {
       name: 'Sunil Kumar',
       title: 'Founder',
@@ -153,7 +175,7 @@ const TestimonialsPage = () => {
     <>
       <div className="bg-gray-50 cursor-pointer">
         <div className="max-w-7xl mx-auto py-16 px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 mt-10">
             <h2 className="text-4xl font-bold mb-4">What Our Travelers Say</h2>
             <p className="text-gray-600">Real stories from real adventurers</p>
           </div>
