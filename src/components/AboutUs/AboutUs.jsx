@@ -10,7 +10,7 @@ const teamMembers = [
     role: "Founder",
     image: "/assest/Team/sunilkumar.jpg",
     description:
-      "Pursued Masters in Tourism from IGNOU, licensed tour operator, German language enthusiast & a certified mountaineer.",
+      "Pursued Masters in Tourism, licensed tour operator, German language enthusiast & a certified mountaineer.",
   },
   {
     name: "Sunil Sharma",

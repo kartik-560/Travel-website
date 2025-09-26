@@ -139,7 +139,7 @@ const teamData = [
     {
       name: 'Sunil Kumar',
       title: 'Founder',
-      image: '/assest/Team/sunilKumar.jpg',
+      image: '/assest/Team/sunilkumar.jpg',
       bio: 'From the winding lanes of Shimla to the remotest trails of Himachal, Sunil Kumar has lived travel long before he made it his profession. A licensed tour expert with a Master’s in Tourism from IGNOU, a diploma in German language, and a Basic Mountaineering certification from HMI Darjeeling, he brings knowledge, adventure, and cultural depth into every journey. Having led road trips across 20 Indian states and guided global travellers through the Himalayas, Sunil’s forte lies in crafting experiences that feel less like tours and more like stories waiting to be lived.'
     },
     {
