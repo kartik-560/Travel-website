@@ -7,7 +7,7 @@ const ContactFormPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone:"",
+    phone: "",
     message: ''
   });
 
@@ -19,37 +19,37 @@ const ContactFormPage = () => {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  console.log("📤 Submitting form data:", formData); // ✅ Helpful debug log
 
-  try {
-    const response = await fetch("http://localhost:5000/api/trips/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
 
-    const result = await response.json();
+    try {
+      const response = await fetch("https://travel-backend-pearl.vercel.app/api/trips/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
-      alert("Thanks! We’ll get in touch soon.");
-      setFormData({ name: "", email: "", phone: "", message: "" });
-    } else {
-      alert(result.error || "Submission failed.");
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Thanks! We’ll get in touch soon.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        alert(result.error || "Submission failed.");
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again later.");
+      console.error("❌ Submit Error:", err);
     }
-  } catch (err) {
-    alert("Something went wrong. Please try again later.");
-    console.error("❌ Submit Error:", err);
-  }
-};
+  };
 
   return (
     <div className="max-w-[90rem] w-full bg-beige-50 flex items-center justify-center p-4 md:p-6 mt-14">
       <div className="w-full max-w-5xl bg-white shadow-2xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5">
         {/* Image Section */}
-        <div 
+        <div
           className="hidden md:block md:col-span-3 lg:col-span-3 bg-cover bg-center relative"
           style={{
             backgroundImage: 'url("assest/Nature/valley.webp")',
@@ -62,7 +62,7 @@ const handleSubmit = async (e) => {
                 Embark on Your Dream Journey
               </h2>
               <p className="text-base md:text-lg text-beige-200 mb-6">
-                Discover extraordinary destinations, create unforgettable memories, 
+                Discover extraordinary destinations, create unforgettable memories,
                 and let our experts craft the perfect travel experience tailored just for you.
               </p>
               <div className="flex justify-center space-x-4">
@@ -86,7 +86,7 @@ const handleSubmit = async (e) => {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 gap-4">
-              <input 
+              <input
                 type="text"
                 name="name"
                 value={formData.name}
@@ -95,8 +95,8 @@ const handleSubmit = async (e) => {
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />
-             
-              <input 
+
+              <input
                 type="email"
                 name="email"
                 value={formData.email}
@@ -107,19 +107,23 @@ const handleSubmit = async (e) => {
               />
 
               <input
-                type="tel" // ✅ correct type for phone numbers
+                type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Phone number"
-                pattern="^\+?[0-9]{10,15}$" // ✅ validation pattern
-                title="Enter a valid phone number (10 to 15 digits, with or without +)"
+                pattern="[0-9]{10}"
+                inputMode="numeric"
+                maxLength={10}
+                title="Enter a valid 10-digit phone number"
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />
+
+
             </div>
-            
-            <textarea 
+
+            <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -127,8 +131,8 @@ const handleSubmit = async (e) => {
               className="w-full p-3 border border-orange-200 rounded-md h-32 focus:ring-2 focus:ring-orange-300 transition"
             />
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300 ease-in-out transform hover:scale-105"
             >
               Request Consultation

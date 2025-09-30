@@ -16,29 +16,27 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['Home','About', 'Itinerary', 'Contact'];
+  const navItems = ['Home', 'About', 'Itinerary', 'Contact', 'Abode'];
 
   return (
     <header
-      className={`fixed overflow-hidden top-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-[#FFF5EE] shadow-lg' 
+      className={`fixed overflow-hidden top-0 w-full z-50 transition-all duration-300 ${scrolled
+          ? 'bg-[#FFF5EE] shadow-lg'
           : 'bg-transparent backdrop-blur-[12px]'
-      }`}
+        }`}
     >
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo with Home Link */}
-          <div className="logo h-full"> 
+          <div className="logo h-full">
             <a
               href="/"
-              className={`text-2xl font-bold hover:opacity-75 transition-opacity duration-150 md:h-[25%] md:w-[25%] h-[30%] w-[30%] ${
-                scrolled ? 'text-black' : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
-              }`}
+              className={`text-2xl font-bold hover:opacity-75 transition-opacity duration-150 md:h-[25%] md:w-[25%] h-[30%] w-[30%] ${scrolled ? 'text-black' : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
+                }`}
             >
-              <img 
-                src="/assest/logo.webp" 
-                alt="Better Backpacking India" 
+              <img
+                src="/assest/logo.webp"
+                alt="Better Backpacking India"
                 className='h-[190%] mt-[-1.9rem] w-full'
               />
             </a>
@@ -46,29 +44,37 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            {navItems.map((item) => (
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                key={item}
-                href={`/${item === 'Home' ? '' : item.toLowerCase()}`}
-                className={`hover:opacity-75 transition-opacity duration-150 hover:text-orange-500 transition-transform font-medium ${
-                  scrolled 
-                    ? 'text-black' 
-                    : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
-                }`}
-              >
-                {item}
-              </motion.a>
-            ))}
+            {navItems.map((item) => {
+              const isAbode = item === 'Abode';
+              return (
+                <motion.a
+                  whileHover={{ scale: 1.2 }}
+                  key={item}
+                  href={
+                    isAbode
+                      ? "https://thehimalayanabode.in"
+                      : `/${item === 'Home' ? '' : item.toLowerCase()}`
+                  }
+                  target={isAbode ? "_blank" : "_self"}
+                  rel={isAbode ? "noopener noreferrer" : undefined}
+                  className={`hover:opacity-75 transition-opacity duration-150 hover:text-orange-500 transition-transform font-medium ${scrolled
+                      ? 'text-black'
+                      : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
+                    }`}
+                >
+                  {item}
+                </motion.a>
+              );
+            })}
           </nav>
+
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden p-2 hover:opacity-75 ${
-              scrolled 
-                ? 'text-black' 
+            className={`md:hidden p-2 hover:opacity-75 ${scrolled
+                ? 'text-black'
                 : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
-            }`}
+              }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -80,16 +86,25 @@ const Header = () => {
         {isOpen && (
           <div className="md:hidden py-4 px-2 bg-white shadow-lg">
             <nav className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`${item === 'Home' ? '/' : item.toLowerCase()}`}
-                  className="text-black hover:opacity-75 transition-opacity duration-150"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isAbode = item === 'Abode';
+                return (
+                  <a
+                    key={item}
+                    href={
+                      isAbode
+                        ? "https://thehimalayanabode.in"
+                        : `${item === 'Home' ? '/' : item.toLowerCase()}`
+                    }
+                    target={isAbode ? "_blank" : "_self"}
+                    rel={isAbode ? "noopener noreferrer" : undefined}
+                    className="text-black hover:opacity-75 transition-opacity duration-150"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item}
+                  </a>
+                );
+              })}
             </nav>
           </div>
         )}

@@ -19,8 +19,6 @@ const ContactForm = () => {
  const handleSubmit = async (e) => {
   e.preventDefault();
 
-  console.log("📤 Submitting form data:", formData); // ✅ Helpful debug log
-
   try {
     const response = await fetch("https://travel-backend-pearl.vercel.app/api/trips/contact", {
       method: "POST",
@@ -106,13 +104,15 @@ const ContactForm = () => {
               />
 
               <input
-                type="tel" // ✅ correct type for phone numbers
+                type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Phone number"
-               // ✅ validation pattern
-                title="Enter a valid phone number (10 to 15 digits, with or without +)"
+                pattern="[0-9]{10}"
+                inputMode="numeric"
+                maxLength={10}
+                title="Enter a valid 10-digit phone number"
                 className="w-full p-3 border border-orange-200 rounded-md focus:ring-2 focus:ring-orange-300 transition"
                 required
               />
