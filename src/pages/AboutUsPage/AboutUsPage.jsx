@@ -22,7 +22,7 @@ const AboutUsPage = () => {
 
   const sections = {
     story: (
-      <div className="space-y-6 flex flex-col justify-start text-justify">
+      <div className="space-y-6 flex flex-col justify-start text-left sm:text-justify leading-relaxed">
         <p>
           Better Bagpacking India began with a simple belief: travel should feel
           personal, meaningful, and transformative.
