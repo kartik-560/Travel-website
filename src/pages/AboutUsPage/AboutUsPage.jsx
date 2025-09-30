@@ -28,7 +28,7 @@ const AboutUsPage = () => {
           personal, meaningful, and transformative.
         </p>
         <p>
-          In 2012, our founder <b>Sunil Kumar </b>was balancing studies and a
+          In 2012, our founder <b> Sunil Kumar </b>was balancing studies and a
           part-time job in Shimla when he discovered the joy of hidden trails,
           local conversations, and the heartbeat of India beyond tourist maps.
           What started as a spark turned into a vision—crafting journeys where

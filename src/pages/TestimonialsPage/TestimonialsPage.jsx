@@ -201,7 +201,7 @@ const teamData = [
       </div>
       <div className="bg-[#F7F5F2] font-sans mt-[-10px]" >
 
-        <div className="bg-[#F5F5F4] text-center py-24 md:py-32">
+        <div className="bg-[#F5F5F4] text-center py-20 md:py-20">
           <div className="container mx-auto px-4">
             <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4 text-[#008080]">
               Meet The Heart of Our Adventures
@@ -212,7 +212,7 @@ const teamData = [
           </div>
         </div>
 
-        <div className="container mx-auto py-16 md:py-24 px-4">
+        <div className="container mx-auto py-16 md:py-24 px-4 mt-[-60px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {teamData.map((member, index) => (
               <div

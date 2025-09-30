@@ -42,6 +42,41 @@ const teamMembers = [
   },
 ];
 
+const TeamCard = ({ member, idx }) => (
+  <motion.div
+    key={member.name}
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: idx * 0.2, duration: 0.6 }}
+    className="relative rounded-2xl overflow-hidden shadow-lg group bg-white w-60"
+  >
+    {/* Image */}
+    <div className="w-full aspect-square md:h-80 overflow-hidden rounded-t-2xl flex items-center justify-center">
+      <img
+        src={member.image}
+        alt={member.name}
+        className="object-contain md:object-cover object-center w-full h-full"
+      />
+    </div>
+
+    {/* Mobile content */}
+    <div className="p-4 text-center md:hidden">
+      <h3 className="text-lg font-semibold text-gray-800">{member.name}</h3>
+      <p className="text-sm text-gray-600 font-medium mb-2">{member.role}</p>
+      <p className="text-sm text-gray-700">{member.description}</p>
+    </div>
+
+    {/* Desktop hover content */}
+    <div className="absolute inset-0 hidden md:flex flex-col justify-end bg-black bg-opacity-70 text-white p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+      <h3 className="text-lg font-semibold">{member.name}</h3>
+      <p className="text-sm text-gray-300 mb-2">{member.role}</p>
+      <p className="text-sm text-gray-200 max-h-[9rem] overflow-y-auto">{member.description}</p>
+    </div>
+  </motion.div>
+);
+
+
 const AboutUs = () => {
   const [activeSection, setActiveSection] = useState("story");
   const ref = useRef(null);
@@ -49,7 +84,7 @@ const AboutUs = () => {
 
   const sections = {
     story: (
-      <div className="space-y-6 flex flex-col justify-start text-justify">
+       <div className="space-y-6 flex flex-col justify-start text-left sm:text-justify leading-relaxed">
         <p>
           Better Bagpacking India began with a simple belief: travel should feel personal, meaningful, and transformative.
         </p>
@@ -145,11 +180,10 @@ const AboutUs = () => {
                 <button
                   key={section}
                   onClick={() => setActiveSection(section)}
-                  className={`px-4 py-2 rounded-full transition-all ${
-                    activeSection === section
-                      ? "bg-orange-500 text-white"
-                      : "bg-orange-100 text-orange-800"
-                  }`}
+                  className={`px-4 py-2 rounded-full transition-all ${activeSection === section
+                    ? "bg-orange-500 text-white"
+                    : "bg-orange-100 text-orange-800"
+                    }`}
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
                 </button>
@@ -178,53 +212,34 @@ const AboutUs = () => {
       {/* Team Section - Stacked Vertically */}
 
       <section className="bg-white  px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Meet Our Team
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {teamMembers.map((member, idx) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2, duration: 0.6 }}
-                className="relative rounded-2xl overflow-hidden shadow-lg group bg-white"
-              >
-                {/* Always show image */}
-                <div className="w-full aspect-square md:aspect-auto md:h-80 bg-white overflow-hidden rounded-t-2xl flex items-center justify-center">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="object-contain md:object-cover object-center w-full h-full"
-                  />
-                </div>
-
-                {/* Mobile content: show always below image */}
-                <div className="p-4 text-center md:hidden">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 font-medium mb-2">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-gray-700">{member.description}</p>
-                </div>
-
-                {/* Desktop content: show on hover */}
-                <div className="absolute inset-0 hidden md:flex flex-col justify-end bg-black bg-opacity-70 text-white p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <h3 className="text-lg font-semibold">{member.name}</h3>
-                  <p className="text-sm text-gray-300 mb-2">{member.role}</p>
-                  <p className="text-sm text-gray-200 max-h-[9rem] overflow-y-auto">
-                    {member.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          {/* Desktop rows */}
+          <div className="hidden md:block">
+            <div className="flex justify-center gap-6 mb-6">
+              {teamMembers.slice(0, 3).map((member, idx) => (
+                <TeamCard member={member} idx={idx} />
+              ))}
+            </div>
+            <div className="flex justify-center gap-6">
+              {teamMembers.slice(3, 5).map((member, idx) => (
+                <TeamCard member={member} idx={idx + 3} />
+              ))}
+            </div>
           </div>
+
+          {/* Mobile view */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:hidden justify-items-center">
+  {teamMembers.map((member, idx) => (
+    <TeamCard member={member} idx={idx} />
+  ))}
+</div>
+
         </div>
+
         {/* </div> */}
       </section>
     </>
