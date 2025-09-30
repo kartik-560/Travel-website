@@ -4,26 +4,30 @@ import { motion } from "framer-motion";
 const Header1 = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = ["Home", "About","Itinerary","Contact"];
+  const navItems = ["Home", "About", "Itinerary", "Contact"];
 
   return (
-    <header className="fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE] shadow-lg">
+    <header className="fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE]      file:shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <div className="logo-header1 h-full ">
-            {/* Logo with Home Link */}
+          
+          <div className="logo-header1 h-full flex items-center">
+
             <a
               href="/"
-              className={`text-2xl font-bold hover:opacity-75 transition-opacity duration-150 'text-black'
-            }`}
+              className="text-2xl font-bold hover:opacity-75 transition-opacity duration-150"
             >
               <img
                 src="/assest/logo.webp"
                 alt="Better Backpacking India"
-                 className='h-[190%] mt-[-1.9rem] w-full'
+                className='h-[130px]  w-full'
               />
+
             </a>
           </div>
+
+
+
           {/* Desktop Navigation */}
 
           <nav className="hidden md:flex items-center space-x-6">
@@ -50,8 +54,8 @@ const Header1 = () => {
         </div>
 
         {/* Mobile Navigation */}
-     
-         {isOpen && (
+
+        {isOpen && (
           <div className="md:hidden py-4 px-2 bg-white shadow-lg">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
@@ -68,7 +72,7 @@ const Header1 = () => {
           </div>
         )}
       </div>
-    </header>
+    </header >
   );
 };
 
