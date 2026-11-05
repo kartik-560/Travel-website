@@ -27,7 +27,7 @@ const RenderModal = ({
 
   useEffect(() => {
     let intervalId;
-    if (selectedModal) {
+    if (selectedModal && testimonials && testimonials[selectedModal - 1]?.image?.length) {
       intervalId = setInterval(() => {
         setCurrentImageIndex((prev) =>
           (prev + 1) % testimonials[selectedModal - 1].image.length
@@ -35,7 +35,7 @@ const RenderModal = ({
       }, 3000);
     }
     return () => clearInterval(intervalId);
-  }, [selectedModal]);
+  }, [selectedModal, testimonials, setCurrentImageIndex]);
 
   const renderStarRating = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (

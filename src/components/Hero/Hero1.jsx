@@ -30,7 +30,7 @@ const Hero1 = () => {
       setSelectedActivity((prev) => (prev + 1) % activities.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [activities.length]);
 
   const handleActivityClick = (index) => {
     setSelectedActivity(index);
