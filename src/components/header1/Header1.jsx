@@ -16,7 +16,7 @@ const Header1 = () => {
   const navItems = ["Home", "About", "Itinerary", "Contact",'Abode'];
 
   return (
-    <header className="fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE]      file:shadow-lg">
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE] ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
 
@@ -53,10 +53,7 @@ const Header1 = () => {
                   }
                   target={isAbode ? "_blank" : "_self"}
                   rel={isAbode ? "noopener noreferrer" : undefined}
-                  className={`hover:opacity-75 transition-opacity duration-150 hover:text-orange-500 transition-transform font-medium ${scrolled
-                    ? 'text-black'
-                    : 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]'
-                    }`}
+                  className="text-black hover:text-orange-500 hover:opacity-75 transition-colors duration-150 font-medium"
                 >
                   {item}
                 </motion.a>

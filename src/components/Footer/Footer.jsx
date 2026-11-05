@@ -12,7 +12,7 @@ const Footer = () => {
   const companyInfo = {
     logo: "LOGO",
     email: "betterbackpackingindia@gmail.com",
-    phone: "+91-8219463849",
+    phone: "+91-8091790220",
     address: "Shankar Niwas, Chalaunthi, PO Sanjauli, Shimla, Himachal Pradesh - 171006",
   }; 
 

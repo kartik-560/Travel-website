@@ -20,7 +20,7 @@ const ContactForm = () => {
   e.preventDefault();
 
   try {
-    const response = await fetch("https://travel-backend-pearl.vercel.app/api/trips/contact", {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/trips/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mountain, Waves, Sun } from "lucide-react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ImmersiveCard = ({ trip }) => (
@@ -42,16 +42,45 @@ const ImmersiveCard = ({ trip }) => (
   </motion.div>
 );
 
-const TripCards = () => {
+const TripSkeletonCard = () => (
+  <div className="relative h-96 rounded-xl overflow-hidden bg-gray-200 animate-pulse p-6 flex flex-col justify-end shadow-md">
+    <div className="absolute inset-0 bg-gradient-to-t from-gray-300/80 via-gray-200/40 to-transparent" />
+    <div className="relative z-10 space-y-4">
+      {/* Title skeleton */}
+      <div className="h-8 bg-gray-300 rounded-md w-3/4 mb-4" />
+      {/* Grid of details */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-20" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-16" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-20" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-24" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const TripCards = ({ mode = "all" }) => {
   const [trips, setTrips] = useState([]);
-  const { id } = useParams();
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchTrips = async () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          "https://travel-backend-pearl.vercel.app/api/trips"
+          `${process.env.REACT_APP_API_BASE_URL}/api/trips`
         );
         setTrips(res.data);
       } catch (err) {
@@ -64,14 +93,23 @@ const TripCards = () => {
     fetchTrips();
   }, []);
 
+  const showAll = mode === "all";
+
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-12" id="itinerary">
+    <div className="max-w-6xl mx-auto p-6 space-y-12 min-h-[70vh]" id="itinerary">
       <h2 className="text-3xl font-bold text-center mb-8">
         Featured Adventures
       </h2>
 
       {loading ? (
-        <div className="text-center">Loading trips...</div>
+        <div className="space-y-8">
+          <div className="h-8 w-44 bg-gray-200 rounded-md animate-pulse" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <TripSkeletonCard key={n} />
+            ))}
+          </div>
+        </div>
       ) : (
         Object.entries(
           trips.reduce((acc, trip) => {
@@ -99,17 +137,20 @@ const TripCards = () => {
         ))
       )}
 
-      <div className="flex justify-center mt-10">
-        <a href="/itinerary">
-          <button
-            className="px-6 py-3 text-white bg-gradient-to-r from-[#FF9D81] to-[#FF4E4E] hover:bg-blue-700 rounded-lg shadow-lg hover:shadow-xl 
-                   transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
-                   focus:ring-blue-400 focus:ring-offset-2"
-          >
-            See More
-          </button>
-        </a>
-      </div>
+      {/* Only show "See More" button when not loading and not showing all */}
+      {!loading && !showAll && (
+        <div className="flex justify-center mt-10">
+          <Link to="/itinerary">
+            <button
+              className="px-6 py-3 text-white bg-gradient-to-r from-[#FF9D81] to-[#FF4E4E] hover:bg-blue-700 rounded-lg shadow-lg hover:shadow-xl 
+                     transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
+                     focus:ring-blue-400 focus:ring-offset-2"
+            >
+              See More
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

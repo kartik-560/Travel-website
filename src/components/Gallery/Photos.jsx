@@ -24,7 +24,7 @@ const Photos = () => {
     const fetchImages = async () => {
       try {
         const res = await fetch(
-          "https://travel-backend-pearl.vercel.app/api/photos"
+          `${process.env.REACT_APP_API_BASE_URL}/api/photos`
         );
         const data = await res.json();
         const allImages = data.flatMap((entry) => entry.images || []);

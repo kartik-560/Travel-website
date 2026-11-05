@@ -58,7 +58,7 @@
 //       try {
 //         setLoading(true);
 //         const res = await axios.get(
-//           "https://travel-backend-pearl.vercel.app/api/trips"
+//           `${process.env.REACT_APP_API_BASE_URL}/api/trips`
 //         );
 //         setTrips(res.data);
 //       } catch (err) {
@@ -167,6 +167,33 @@ const ImmersiveCard = ({ trip }) => (
   </motion.div>
 );
 
+const TripSkeletonCard = () => (
+  <div className="relative h-96 rounded-xl overflow-hidden bg-gray-200 animate-pulse p-6 flex flex-col justify-end shadow-md">
+    <div className="absolute inset-0 bg-gradient-to-t from-gray-300/80 via-gray-200/40 to-transparent" />
+    <div className="relative z-10 space-y-4">
+      <div className="h-8 bg-gray-300 rounded-md w-3/4 mb-4" />
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-20" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-16" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-20" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
+          <div className="h-4 bg-gray-300 rounded w-24" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const ItineraryCard = ({ mode = "about" }) => {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -175,7 +202,7 @@ const ItineraryCard = ({ mode = "about" }) => {
     const fetchTrips = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("https://travel-backend-pearl.vercel.app/api/trips");
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/trips`);
         setTrips(res.data);
       } catch (err) {
         console.error("Failed to fetch trips:", err);
@@ -194,7 +221,11 @@ const ItineraryCard = ({ mode = "about" }) => {
       <h2 className="text-3xl font-bold text-center mb-8">Featured Adventures</h2>
 
       {loading ? (
-        <div className="text-center">Loading trips...</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3].map((n) => (
+            <TripSkeletonCard key={n} />
+          ))}
+        </div>
       ) : (
         Object.entries(
           trips.reduce((acc, trip) => {
@@ -233,7 +264,7 @@ const ItineraryCard = ({ mode = "about" }) => {
       )}
 
       {/* "See More" only for the About page */}
-      {!showAll && (
+      {!loading && !showAll && (
         <div className="flex justify-center mt-10">
           <a href="/itinerary">
             <button
