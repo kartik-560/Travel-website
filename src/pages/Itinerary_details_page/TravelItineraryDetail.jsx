@@ -310,7 +310,7 @@ function TravelItineraryDetail() {
 
       <Header1 />
 
-      <main className="pt-24 md:pt-28 pb-20">
+      <main className="pt-28 sm:pt-32 md:pt-36 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Breadcrumb & Share Strip */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 text-xs">

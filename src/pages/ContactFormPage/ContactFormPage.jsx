@@ -104,7 +104,7 @@ const ContactFormPage = () => {
   };
 
   return (
-    <div className="pt-28 pb-20 min-h-screen bg-gradient-to-b from-orange-50/50 via-white to-slate-50 text-slate-800">
+    <div className="pt-32 sm:pt-36 md:pt-40 pb-20 min-h-screen bg-gradient-to-b from-orange-50/50 via-white to-slate-50 text-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Top Hero Section */}

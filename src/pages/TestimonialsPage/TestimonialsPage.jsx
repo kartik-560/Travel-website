@@ -173,7 +173,7 @@ const teamData = [
   return (
 
     <>
-      <div className="bg-gray-50 cursor-pointer">
+      <div className="bg-gray-50 cursor-pointer pt-20 sm:pt-28">
         <div className="max-w-7xl mx-auto py-16 px-4">
           <div className="text-center mb-12 mt-10">
             <h2 className="text-4xl font-bold mb-4">What Our Travelers Say</h2>
