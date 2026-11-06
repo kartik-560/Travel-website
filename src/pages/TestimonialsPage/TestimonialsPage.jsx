@@ -15,7 +15,7 @@ const TestimonialsPage = () => {
     {
       name: "Seranne",
       role: "Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Himalaya.webp", "/assest/Enchanting_delhi_shimla/himalaya.png"],
+      image: ["/assest/Enchanting_delhi_shimla/Himalaya.webp", "/assest/Enchanting_delhi_shimla/himalaya.webp"],
       text: "They say that this means good luck, and I wish you all the luck with everything. I am very grateful for everything you did for me. Without you, I couldn’t make this trip so good. Shukriya!!",
       location: "Himalayas, India",
       rating: 5
@@ -23,7 +23,7 @@ const TestimonialsPage = () => {
     {
       name: "Garlic Girls",
       role: "Road Trippers",
-      image: ["/assest/Enchanting_delhi_shimla/Road_trip.png"],
+      image: ["/assest/Enchanting_delhi_shimla/Road_trip.webp"],
       text: "There are no bad people. Only good people, that do bad things. - Sunil, the wise (2019).",
       location: "India Roadtrip, August 2019",
       rating: 5
@@ -31,7 +31,7 @@ const TestimonialsPage = () => {
     {
       name: "Shivangini Chauhan",
       role: "Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.png","/assest/Enchanting_delhi_shimla/himachal.png"],
+      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.webp","/assest/Enchanting_delhi_shimla/himachal.webp"],
       text: "My recent trip to Spiti was incredible, not just because of the stunning location, but mainly due to the wonderful people I met along the way. Sunil Bhaiya's captivating Himachali stories added an extra layer of charm to the journey. Despite challenges like the lack of running water, it taught me the profound value of water in more ways than one. It feels like yesterday; Spiti, you are truly magnificent.",
       location: "Spiti Valley, Himachal Pradesh",
       rating: 5
@@ -39,7 +39,7 @@ const TestimonialsPage = () => {
     {
       name: "Madhuri",
       role: "Pilgrim Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.png","/assest/Enchanting_delhi_shimla/gujrat.png"],
+      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.webp","/assest/Enchanting_delhi_shimla/gujrat.webp"],
       text: "Traveling with mom to Dwarka, Somnath and Gir in Gujarat has been nothing but spectacular. Marvelous darshan to the temples and such warm hospitality made me grateful. Huge thanks to Sunil Bhai, who has always been by our side, taking special care of mom and ensuring everything went smoothly. Can’t thank you enough, Bhai, for being there.",
       location: "Dwarka, Gujarat",
       rating: 5
@@ -139,31 +139,31 @@ const teamData = [
     {
       name: 'Sunil Kumar',
       title: 'Founder',
-      image: '/assest/Team/sunilkumar.jpg',
+      image: '/assest/Team/sunilkumar.webp',
       bio: 'From the winding lanes of Shimla to the remotest trails of Himachal, Sunil Kumar has lived travel long before he made it his profession. A licensed tour expert with a Master’s in Tourism, a diploma in German language, and a Basic Mountaineering certification from HMI Darjeeling, he brings knowledge, adventure, and cultural depth into every journey. Having led road trips across 20 Indian states and guided global travellers through the Himalayas, Sunil’s forte lies in crafting experiences that feel less like tours and more like stories waiting to be lived.'
     },
     {
       name: 'Sunil Sharma',
       title: 'Co-founder',
-      image: '/assest/Team/sunil.jpg',
+      image: '/assest/Team/sunil.webp',
       bio: 'With a vision to revolutionize the tourism industry, Sunil co-founded Better Backpacking India to make travel more accessible, transparent, and customer-friendly. His goal is to provide travelers with not just a trip, but an experience that is immersive, exhilarating, and unforgettable.'
     },
     {
       name: 'Aashima Kanwar',
       title: 'Operations Executive',
-      image: '/assest/Team/aashima.jpg',
+      image: '/assest/Team/aashima.webp',
       bio: 'With four years of experience in sales and team leadership, Aashima is a dedicated travel expert committed to curating personalized travel experiences. Hailing from the serene landscapes of Himachal Pradesh, at the foot of Churdhar Peak—the highest in Sirmour—she has a deep appreciation for nature and exploration. Her strong sense of responsibility ensures that every journey she plans is not just a trip but a cherished memory for every traveler.'
     },
     {
       name: 'Neetima',
       title: 'Certified Mountaineer & Trek Guide',
-      image: '/assest/Team/neetima.jpg',
+      image: '/assest/Team/neetima.webp',
       bio: 'A certified mountaineer, skier (ABVIMAS), and licensed tourist guide (HP Tourism), Neetima has spent the past six years leading adventurers through the mountains. Born amidst nature in a humble cow shelter, she was inspired by her uncle, who summited the world’s highest peak in 1993. Living by her mother’s prophecy—marked by a mole on her foot that foretold endless exploration—she now guides fellow trekkers, especially women, helping them discover the thrill and serenity of the wild. With four mountain expeditions every month, she is dedicated to empowering others to conquer new heights.'
     },
     {
       name: 'Sanjay Chauhan',
       title: 'Experienced Driver',
-      image: '/assest/Team/sanjay.jpg',
+      image: '/assest/Team/sanjay.webp',
       bio: 'A professional driver having 25 years driving experience in the difficult mountain terrain i.e. Kinnaur,Spiti, Lahaul,Leh, Kashmir and Utrakhand. The best thing about him being a driver is that he is non-smoker and a teetotaler .'
     }
 

@@ -1,169 +1,181 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { Sparkles, ArrowRight, Compass, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Hero1 = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [selectedActivity, setSelectedActivity] = useState(0);
   const navigate = useNavigate();
+
   const activities = [
     {
       id: "01",
-      title: "Curated Travel",
+      badge: "Curated Expeditions",
+      title: "Experience India Like Never Before",
+      subtitle: "Authentic Trails • High Mountain Passes • Living Culture",
+      description: "Step away from crowded tourist itineraries. Discover the untouched majesty of Spiti, Ladakh, and hidden Himachal hamlets.",
       imageUrl: "/assest/HeroImages/gompa-transformed.webp",
+      tag: "Spiti & Kinnaur Valley",
     },
     {
       id: "02",
-      title: "Authentic Experiences",
+      badge: "Authentic Experiences",
+      title: "Connect Deeply, Travel Softly",
+      subtitle: "Village Homestays • Local Mountain Guides • True Hospitality",
+      description: "Rest by pristine mountain streams, share warm butter tea with native elders, and make lifelong friends on the trail.",
       imageUrl: "/assest/HeroImages/rocky_hotels.webp",
+      tag: "Alpine Retreats & Rivers",
     },
     {
       id: "03",
-      title: "Personalized Journeys",
+      badge: "Personalized Journeys",
+      title: "Transformative Mountain Adventures",
+      subtitle: "Small Group Pacing • High-Altitude Safety • Zero Trace",
+      description: "Carefully designed small-batch expeditions (max 10-12 backpackers) ensuring intimate camaraderie and dedicated personal care.",
       imageUrl: "/assest/HeroImages/ladakh.webp",
+      tag: "Leh Ladakh & Pangong",
     },
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % activities.length);
-      setSelectedActivity((prev) => (prev + 1) % activities.length);
-    }, 4000);
+    }, 5500);
     return () => clearInterval(timer);
   }, [activities.length]);
 
-  const handleActivityClick = (index) => {
-    setSelectedActivity(index);
-    setCurrentSlide(index);
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % activities.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + activities.length) % activities.length);
   };
 
   return (
-    <div className="hero-container relative xs:max-h-[93.0vh] md:min-h-screen w-full overflow-hidden">
-      <div className="hero-background-wrapper relative h-screen">
+    <div className="relative w-full h-screen min-h-screen min-h-[600px] overflow-hidden bg-slate-950 select-none">
+      {/* Background Slides */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activities[currentSlide].id}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <img
+            src={activities[currentSlide].imageUrl}
+            alt={activities[currentSlide].title}
+            width="1600"
+            height="900"
+            fetchPriority={currentSlide === 0 ? "high" : "auto"}
+            decoding="async"
+            className="w-full h-full object-cover object-center filter brightness-[0.72]"
+          />
+          {/* Subtle multi-layer ambient gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-black/30" />
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/60 pointer-events-none" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Main Content Overlay */}
+      <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4 sm:px-6 max-w-5xl mx-auto pt-16">
         <AnimatePresence mode="wait">
-          {activities.map((activity, index) => (
-            <div
-              key={activity.id}
-              className={`hero-slide absolute inset-0 transition-opacity duration-1000 ${
-                index === currentSlide ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {/* Background */}
-              <div className="hero-image-wrapper absolute inset-0">
-                <img
-                  src={activity.imageUrl}
-                  alt={activity.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="hero-gradient absolute inset-0 bg-black bg-opacity-50"></div>
-              </div>
-
-              {/* Common Hero Text Overlay */}
-              <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1 }}
-                  className="text-3xl sm:text-5xl font-bold mb-4 font-Arial"
-                >
-                  Experience India Like Never Before –{" "}
-                  <br className="hidden sm:block" />
-                  Travel, Connect, Belong.
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.2 }}
-               className="text-[22px] sm:text-[28px] md:text-[32px] max-w-2xl mb-6 font-Arial"
-
-                >
-                  Curated Travel Authentic Experiences Personalized Journeys
-                </motion.p>
-
-                {/* <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.4 }}
-                   className="text-[20px] sm:text-[18px] max-w-2xl text-white/90 mb-8 font-Arial"
-
-                >
-                   Led by Experts | 24/7 Personalized Assistance | Immersive
-                  Cultural Exchange
-                </motion.p> */}
-
-                <motion.button
-                  onClick={() => navigate("/itinerary")}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.6 }}
-                  className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                >
-                  Start Your Journey →
-                </motion.button>
-              </div>
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -22 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4 sm:space-y-6"
+          >
+            {/* Top Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/25 text-orange-300 text-xs sm:text-sm font-semibold tracking-wide shadow-lg">
+              <Sparkles className="w-4 h-4 text-orange-400" />
+              <span className="uppercase">{activities[currentSlide].badge}</span>
+              <span className="text-white/40">•</span>
+              <span className="text-white/80 font-normal">{activities[currentSlide].tag}</span>
             </div>
-          ))}
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              {activities[currentSlide].title}
+            </h1>
+
+            {/* Subtitle / Pillars */}
+            <p className="text-orange-200/90 font-medium text-sm sm:text-lg tracking-wide">
+              {activities[currentSlide].subtitle}
+            </p>
+
+            {/* Description */}
+            <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+              {activities[currentSlide].description}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap justify-center items-center gap-3 pt-2 sm:pt-4">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/itinerary")}
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-orange-500/25 transition-all cursor-pointer"
+              >
+                <span>Explore Expeditions</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/about")}
+                className="inline-flex items-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 font-semibold text-sm sm:text-base transition-all cursor-pointer shadow-md"
+              >
+                <Compass className="w-4 h-4 text-orange-300" />
+                <span>Our Philosophy</span>
+              </motion.button>
+            </div>
+          </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Activities Tab */}
-      <div className="hero-activities-wrapper absolute bottom-0 left-0 lg:left-[70%] right-0 flex justify-center px-4 pb-8 z-20 hidden ">
-        <div className="hero-activities-container bg-white/20 backdrop-blur-md rounded-2xl shadow-lg w-full max-w-xs">
-          <div className="hero-activities-header p-4 relative">
-            <h2 className="text-lg font-semibold text-white mb-2">
-              What Excites You Most?
-            </h2>
-            <div className="w-12 h-0.5 bg-white"></div>
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/70 text-sm">
-              <span className="hidden sm:inline">
-                {activities[selectedActivity].id}
-              </span>
-            </div>
-          </div>
-          <div className="hero-activities-list">
-            {activities.map((activity, index) => (
-              <div
-                key={activity.id}
-                className={`hero-activity-item flex items-center p-4 cursor-pointer transition-all duration-300 ${
-                  selectedActivity === index ? "bg-white/10" : "bg-transparent"
-                }`}
-                onClick={() => handleActivityClick(index)}
-              >
-                <div className="hero-activity-icon relative mr-4">
-                  <span className="sm:hidden text-sm text-white/70 absolute -left-[0.8rem] -top-[0.50rem]">
-                    {activity.id}
-                  </span>
-                  <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <img
-                      src={activity.imageUrl}
-                      alt={activity.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="hero-activity-text">
-                  <h3 className="font-semibold text-base text-white">
-                    {activity.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Slide Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        aria-label="Previous Slide"
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
 
-      {/* Carousel Indicators */}
-      <div className="hero-indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20 displa hidden">
-        {activities.map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 w-2 rounded-full transition-all duration-300 ${
-              index === currentSlide ? "bg-white w-6" : "bg-white/50"
-            }`}
-          />
-        ))}
+      <button
+        onClick={nextSlide}
+        aria-label="Next Slide"
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      {/* Interactive Bottom Progress Tabs */}
+      <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-3 bg-black/40 backdrop-blur-md p-1.5 rounded-full border border-white/15">
+        {activities.map((act, index) => {
+          const isActive = index === currentSlide;
+          return (
+            <button
+              key={act.id}
+              onClick={() => setCurrentSlide(index)}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer ${
+                isActive
+                  ? "bg-white text-slate-900 shadow-md"
+                  : "text-white/70 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              <span>{act.id}</span>
+              <span className="hidden md:inline">{act.title.split(" ")[0]}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -56,11 +56,11 @@ function Home() {
                 />
                 <meta property="og:url" content="https://www.betterbackpackingindia.com/" />
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content="https://www.betterbackpackingindia.com/assest/logo.png" />
+                <meta property="og:image" content="https://www.betterbackpackingindia.com/assest/logo.webp" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Better Backpacking India | Backpacking, Treks & Adventure Tours" />
                 <meta name="twitter:description" content="Discover curated travel itineraries across India from Himalayas to Kerala." />
-                <meta name="twitter:image" content="https://www.betterbackpackingindia.com/assest/logo.png" />
+                <meta name="twitter:image" content="https://www.betterbackpackingindia.com/assest/logo.webp" />
               </Helmet>
               <Header />
               {/* <Hero /> */}

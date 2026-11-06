@@ -1,64 +1,90 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
+import { ShieldCheck, Compass, Tent, Leaf, Sparkles } from "lucide-react";
 
 const ChooseUs = () => {
   const benefits = [
     {
-      title: 'Safety and Comfort',
+      title: "Mountain Safety First",
       description:
-        'We prioritize your safety with secure environments and trained professionals, offering comfort and peace of mind on every journey.',
-      icon: '🛡️',
-      bgColor: 'bg-green-100',
+        "Trained high-altitude leaders, certified first-aid kits, acclimatization schedules, and veteran mountain drivers on every pass.",
+      icon: <ShieldCheck className="w-6 h-6 text-emerald-600" />,
+      accent: "from-emerald-500/10 to-teal-500/5",
+      badge: "Certified Guides",
     },
     {
-      title: 'Expertly Curated Itineraries',
+      title: "Handcrafted Itineraries",
       description:
-        'Each adventure is tailored for you, blending excitement, relaxation, and seamless planning to ensure unforgettable experiences.',
-      icon: '🗺️',
-      bgColor: 'bg-blue-100',
+        "Thoughtfully planned circuits balancing thrilling high passes with restful village pauses and rich cultural exchanges.",
+      icon: <Compass className="w-6 h-6 text-orange-600" />,
+      accent: "from-orange-500/10 to-amber-500/5",
+      badge: "No Tourist Traps",
     },
     {
-      title: 'Camping Experiences',
+      title: "Starlight Wilderness Camps",
       description:
-        'Enjoy serene nights under the stars, surrounded by nature, with activities designed to rejuvenate and inspire.',
-      icon: '⛺',
-      bgColor: 'bg-yellow-100',
+        "Serene nights beneath unpolluted Himalayan skies, warm fireside banter, storytelling, and memories to last a lifetime.",
+      icon: <Tent className="w-6 h-6 text-sky-600" />,
+      accent: "from-sky-500/10 to-blue-500/5",
+      badge: "Off-Grid Nights",
     },
     {
-      title: 'Sustainable Travel',
+      title: "Regenerative & Eco-Conscious",
       description:
-        'Travel responsibly with us as we ensure eco-friendly practices, supporting local communities and preserving nature.',
-      icon: '🌿',
-      bgColor: 'bg-teal-100',
+        "We practice strict Leave No Trace guidelines, support indigenous village homestays, and protect sacred mountain ecosystems.",
+      icon: <Leaf className="w-6 h-6 text-teal-600" />,
+      accent: "from-teal-500/10 to-green-500/5",
+      badge: "100% Sustainable",
     },
   ];
 
   return (
-    <div className="py-12 bg-gray-50">
-   
-   <div className="text-center mb-8 px-4 sm:px-6 md:px-8">
-  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-    Why People ❤️ Choose Us
-  </h2>
-  <p className="text-gray-600 mt-2 text-sm sm:text-base md:text-lg">
-    Experience the best with Better Backpacking India
-  </p>
-</div>
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100 text-orange-700 text-xs font-semibold uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Why Choose Better Backpacking</span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Why Travelers ❤️ Backpack With Us
+        </h2>
+        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          More than a travel agency — we are a community of mountain lovers dedicated to authentic, safe, and respectful journeys.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         {benefits.map((benefit, index) => (
-          <div
+          <motion.div
             key={index}
-            className={`p-6 rounded-lg shadow-md ${benefit.bgColor} hover:scale-105 transform transition duration-300`}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.3 }}
+            className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
           >
-            <div className="text-4xl mb-4">{benefit.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              {benefit.title}
-            </h3>
-            <p className="text-gray-600">{benefit.description}</p>
-          </div>
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${benefit.accent} flex items-center justify-center border border-slate-100 shadow-xs group-hover:scale-110 transition-transform`}
+                >
+                  {benefit.icon}
+                </div>
+                <span className="text-[11px] font-bold text-slate-500 px-2.5 py-1 rounded-full bg-slate-100">
+                  {benefit.badge}
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-orange-600 transition-colors mb-2">
+                {benefit.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

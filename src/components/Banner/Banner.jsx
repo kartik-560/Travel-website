@@ -1,65 +1,88 @@
-import React from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { TypeAnimation } from 'react-type-animation';
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { TypeAnimation } from "react-type-animation";
+import { ArrowRight, Compass, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView();
-
-  // Trigger the animation when the component comes into view
-  React.useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <div className="relative w-full h-[250px] md:h-[400px] bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
-      <img
-        src="/assest/Banner/people.webp"
-        alt="Hiker"
-        loading='lazy'
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gray-800 bg-opacity-70 flex items-start justify-start">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div
+        ref={ref}
+        className="relative w-full min-h-[320px] sm:min-h-[380px] md:min-h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/60 bg-slate-900 flex items-center justify-center text-white"
+      >
+        <img
+          src="/assest/Banner/people.webp"
+          alt="Adventurers trekking together across Himalayan alpine meadows"
+          width="1920"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.65]"
+        />
+
+        {/* Ambient Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/60 to-transparent" />
+
+        {/* Content */}
         <motion.div
-          className="mt-[6rem] p-6 md:p-10 lg:p-16"
-          ref={ref}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={controls}
-          variants={{
-            visible: {
-              opacity: 1,
-              scale: 1,
-              transition: { duration: 0.8 },
-            },
-          }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="relative z-10 max-w-3xl mr-auto px-6 sm:px-12 md:px-16 py-10 space-y-4 text-left"
         >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-orange-300 text-xs font-semibold uppercase tracking-wider">
+            <Compass className="w-3.5 h-3.5" />
+            <span>Ready For The Trail?</span>
+          </div>
+
           <TypeAnimation
             sequence={[
-              'Mountain Adventurer', // Types 'Mountain Adventurer'
-              2000, // Waits 2s
-              'Exploring the Peaks', // Deletes 'Mountain Adventurer' and types 'Exploring the Peaks'
-              2000, // Waits 2s
+              "Leave The Crowds Behind.",
+              2200,
+              "Explore Untouched Spiti Valleys.",
+              2200,
+              "Cross High Himalayan Passes.",
+              2200,
+              "Belong Where Few Have Walked.",
+              2200,
             ]}
-            wrapper="h3"
-            className="text-2xl font-medium text-start mb-2"
+            wrapper="h2"
+            className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight"
             cursor={true}
             repeat={Infinity}
           />
-          <motion.p
-            className="text-gray-400 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Join us on an unforgettable adventure.
-          </motion.p>
+
+          <p className="text-slate-200 text-sm sm:text-base max-w-xl font-light leading-relaxed">
+            Every expedition is small-group curated with certified mountain leaders, local homestays, and transparent pricing.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <Link
+              to="/itinerary"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold text-sm shadow-lg hover:shadow-orange-500/20 transition-all cursor-pointer"
+            >
+              <span>Explore Expeditions</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+
+            <a
+              href="https://wa.me/918091790220?text=Hi%20Sunil,%20I'd%20like%20to%20plan%20a%20trip%20with%20Better%20Backpacking%20India"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 font-semibold text-sm transition-colors cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-400" />
+              <span>WhatsApp Sunil</span>
+            </a>
+          </div>
         </motion.div>
       </div>
-      <div className="absolute top-0 left-0 w-full h-full shadow-[inset_-10px_0_20px_0_rgba(0,0,0,0.5)]"></div>
-    </div>
+    </section>
   );
 };
 

@@ -1,166 +1,64 @@
-// import React, { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
-// import { MapPin, Mountain, Waves, Sun } from "lucide-react";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-
-// const ImmersiveCard = ({ trip }) => {
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0, scale: 0.9 }}
-//       whileInView={{
-//         opacity: 1,
-//         scale: 1,
-//         transition: {
-//           duration: 0.5,
-//         },
-//       }}
-//       className="relative h-96 group rounded-xl overflow-hidden cursor-pointer"
-//     >
-//       <img
-//         src={trip.images?.[0]}
-//         alt={trip.title}
-//         loading="lazy"
-//         className="w-full h-full object-cover"
-//       />
-//       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-//       <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-//         <h3 className="text-3xl font-bold mb-4">{trip.title}</h3>
-//         <div className="grid grid-cols-2 gap-4 mb-4">
-//           <div className="flex items-center gap-2">
-//             <Sun className="w-5 h-5 text-yellow-400" />
-//             <span>{trip.duration}</span>
-//           </div>
-//           <div className="flex items-center gap-2">
-//             <Mountain className="w-5 h-5 text-yellow-400" />
-//             <span>{trip.difficulty}</span>
-//           </div>
-//           <div className="flex items-center gap-2">
-//             <MapPin className="w-5 h-5 text-yellow-400" />
-//             <span>{trip.distance}</span>
-//           </div>
-//           <div className="flex items-center gap-2">
-//             <Waves className="w-5 h-5 text-yellow-400" />
-//             <span>{trip.highlights?.length || 0} Locations</span>
-//           </div>
-//         </div>
-//       </div>
-//     </motion.div>
-//   );
-// };
-
-// const ItineraryCard = () => {
-//   const [trips, setTrips] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchTrips = async () => {
-//       try {
-//         setLoading(true);
-//         const res = await axios.get(
-//           `${process.env.REACT_APP_API_BASE_URL}/api/trips`
-//         );
-//         setTrips(res.data);
-//       } catch (err) {
-//         console.error("Failed to fetch trips:", err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchTrips();
-//   }, []);
-
-//   return (
-//     <div className="max-w-6xl mx-auto p-6 space-y-12" id="itinerary">
-//       <h2 className="text-3xl font-bold text-center mb-8">
-//         Featured Adventures
-//       </h2>
-
-//       {loading ? (
-//         <div className="text-center">Loading trips...</div>
-//       ) : (
-//         Object.entries(
-//           trips.reduce((acc, trip) => {
-//             const category = trip.category || "Uncategorized";
-//             if (!acc[category]) acc[category] = [];
-//             acc[category].push(trip);
-//             return acc;
-//           }, {})
-//         ).map(([category, tripsInCategory]) => (
-//           <div key={category} className="space-y-4">
-//             <h3 className="text-2xl font-semibold text-gray-800">{category}</h3>
-//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//               {tripsInCategory.map((trip) => (
-//                 <Link
-//                   to={`/travel_itinerary/${trip.id}/${encodeURIComponent(
-//                     trip.title
-//                   )}`}
-//                   key={trip.id}
-//                 >
-//                   <ImmersiveCard trip={trip} />
-//                 </Link>
-//               ))}
-//             </div>
-//           </div>
-//         ))
-//       )}
-
-//       <div className="flex justify-center mt-10">
-//         <a href="/itinerary">
-//           <button
-//             className="px-6 py-3 text-white bg-gradient-to-r from-[#FF9D81] to-[#FF4E4E] hover:bg-blue-700 rounded-lg shadow-lg hover:shadow-xl 
-//                transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
-//                focus:ring-blue-400 focus:ring-offset-2"
-//           >
-//             See More
-//           </button>
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ItineraryCard;
-
-
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mountain, Waves, Sun } from "lucide-react";
+import { MapPin, Mountain, Waves, Sun, Sparkles, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ImmersiveCard = ({ trip }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.5 } }}
-    className="relative h-96 group rounded-xl overflow-hidden cursor-pointer"
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.4 } }}
+    viewport={{ once: true }}
+    whileHover={{ y: -6 }}
+    className="relative h-[400px] sm:h-[420px] group rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200/80 bg-slate-900 flex flex-col justify-end"
   >
     <img
-      src={trip.images?.[0]}
+      src={trip.images?.[0] || "/assest/chandratal/Chandratal.webp"}
       alt={trip.title}
+      width="600"
+      height="800"
       loading="lazy"
-      className="w-full h-full object-cover"
+      decoding="async"
+      className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
     />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-    <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-      <h3 className="text-3xl font-bold mb-4">{trip.title}</h3>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="flex items-center gap-2">
-          <Sun className="w-5 h-5 text-yellow-400" />
-          <span>{trip.duration}</span>
+    {/* Gradients */}
+    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+
+    {/* Top Category / Difficulty Pill */}
+    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+      <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold shadow-xs">
+        {trip.duration || "Expedition"}
+      </span>
+      {trip.difficulty && (
+        <span className="px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-orange-300 text-[11px] font-semibold border border-white/20">
+          {trip.difficulty}
+        </span>
+      )}
+    </div>
+
+    {/* Bottom Content */}
+    <div className="relative p-6 z-10 text-white space-y-3">
+      <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-orange-300 transition-colors line-clamp-2">
+        {trip.title}
+      </h3>
+
+      <div className="grid grid-cols-2 gap-2.5 text-xs text-slate-200 pt-1">
+        <div className="flex items-center gap-1.5">
+          <Sun className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>{trip.duration || "Flexible"}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Mountain className="w-5 h-5 text-yellow-400" />
-          <span>{trip.difficulty}</span>
+        <div className="flex items-center gap-1.5">
+          <Mountain className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{trip.difficulty || "Moderate"}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-yellow-400" />
-          <span>{trip.distance}</span>
+        <div className="flex items-center gap-1.5">
+          <MapPin className="w-4 h-4 text-orange-400 shrink-0" />
+          <span>{trip.distance || "Curated Route"}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Waves className="w-5 h-5 text-yellow-400" />
-          <span>{trip.highlights?.length || 0} Locations</span>
+        <div className="flex items-center gap-1.5">
+          <Waves className="w-4 h-4 text-sky-400 shrink-0" />
+          <span>{trip.highlights?.length || 0} Key Sights</span>
         </div>
       </div>
     </div>
@@ -168,27 +66,15 @@ const ImmersiveCard = ({ trip }) => (
 );
 
 const TripSkeletonCard = () => (
-  <div className="relative h-96 rounded-xl overflow-hidden bg-gray-200 animate-pulse p-6 flex flex-col justify-end shadow-md">
-    <div className="absolute inset-0 bg-gradient-to-t from-gray-300/80 via-gray-200/40 to-transparent" />
+  <div className="relative h-[400px] sm:h-[420px] rounded-3xl overflow-hidden bg-slate-200 animate-pulse p-6 flex flex-col justify-end shadow-md">
+    <div className="absolute inset-0 bg-gradient-to-t from-slate-300/80 via-slate-200/40 to-transparent" />
     <div className="relative z-10 space-y-4">
-      <div className="h-8 bg-gray-300 rounded-md w-3/4 mb-4" />
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
-          <div className="h-4 bg-gray-300 rounded w-20" />
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
-          <div className="h-4 bg-gray-300 rounded w-16" />
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
-          <div className="h-4 bg-gray-300 rounded w-20" />
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gray-300 shrink-0" />
-          <div className="h-4 bg-gray-300 rounded w-24" />
-        </div>
+      <div className="h-6 bg-slate-300 rounded-md w-3/4 mb-3" />
+      <div className="grid grid-cols-2 gap-3">
+        <div className="h-4 bg-slate-300 rounded w-20" />
+        <div className="h-4 bg-slate-300 rounded w-16" />
+        <div className="h-4 bg-slate-300 rounded w-20" />
+        <div className="h-4 bg-slate-300 rounded w-24" />
       </div>
     </div>
   </div>
@@ -217,11 +103,22 @@ const ItineraryCard = ({ mode = "about" }) => {
   const showAll = mode === "all";
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-12" id="itinerary">
-      <h2 className="text-3xl font-bold text-center mb-8">Featured Adventures</h2>
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12" id="itinerary">
+      <div className="text-center max-w-2xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100 text-orange-700 text-xs font-semibold uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Curated Expeditions</span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Featured Adventures
+        </h2>
+        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Small-group road trips, alpine treks, and cultural immersions designed for mindful travelers.
+        </p>
+      </div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {[1, 2, 3].map((n) => (
             <TripSkeletonCard key={n} />
           ))}
@@ -229,23 +126,23 @@ const ItineraryCard = ({ mode = "about" }) => {
       ) : (
         Object.entries(
           trips.reduce((acc, trip) => {
-            const category = trip.category || "Uncategorized";
+            const category = trip.category || "Featured Expeditions";
             if (!acc[category]) acc[category] = [];
             acc[category].push(trip);
             return acc;
           }, {})
         ).map(([category, tripsInCategory]) => (
-          <div key={category} className="space-y-4">
-            <h3 className="text-2xl font-semibold text-gray-800">{category}</h3>
+          <div key={category} className="space-y-6">
+            <h3 className="text-2xl font-bold text-slate-900 border-l-4 border-orange-500 pl-3">
+              {category}
+            </h3>
 
-         
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {tripsInCategory.map((trip, i) => {
-                
                 let visibility = "";
                 if (!showAll) {
-                  if (i >= 3) visibility = "hidden";      
-                  else if (i >= 2) visibility = "hidden md:block"; 
+                  if (i >= 3) visibility = "hidden";
+                  else if (i >= 2) visibility = "hidden md:block";
                 }
 
                 return (
@@ -263,21 +160,18 @@ const ItineraryCard = ({ mode = "about" }) => {
         ))
       )}
 
-      {/* "See More" only for the About page */}
       {!loading && !showAll && (
-        <div className="flex justify-center mt-10">
-          <a href="/itinerary">
-            <button
-              className="px-6 py-3 text-white bg-gradient-to-r from-[#FF9D81] to-[#FF4E4E] rounded-lg shadow-lg hover:shadow-xl 
-              transition duration-300 transform hover:scale-105 outline-none focus:outline-none focus:ring-2 
-              focus:ring-blue-400 focus:ring-offset-2"
-            >
-              See More
-            </button>
-          </a>
+        <div className="flex justify-center pt-6">
+          <Link
+            to="/itinerary"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+          >
+            <span>View All Expeditions</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
