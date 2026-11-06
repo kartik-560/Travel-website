@@ -13,7 +13,7 @@ const Header1 = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["Home", "About", "Itinerary", "Contact",'Abode'];
+  const navItems = ["Home", "About", "Itinerary", "Contact"];
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden bg-[#FFF5EE] ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
@@ -40,25 +40,16 @@ const Header1 = () => {
           {/* Desktop Navigation */}
 
           <nav className="hidden md:flex items-center space-x-6">
-            {navItems.map((item) => {
-              const isAbode = item === 'Abode';
-              return (
-                <motion.a
-                  whileHover={{ scale: 1.2 }}
-                  key={item}
-                  href={
-                    isAbode
-                      ? "https://thehimalayanabode.in"
-                      : `/${item === 'Home' ? '' : item.toLowerCase()}`
-                  }
-                  target={isAbode ? "_blank" : "_self"}
-                  rel={isAbode ? "noopener noreferrer" : undefined}
-                  className="text-black hover:text-orange-500 hover:opacity-75 transition-colors duration-150 font-medium"
-                >
-                  {item}
-                </motion.a>
-              );
-            })}
+            {navItems.map((item) => (
+              <motion.a
+                whileHover={{ scale: 1.2 }}
+                key={item}
+                href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                className="text-black hover:text-orange-500 hover:opacity-75 transition-colors duration-150 font-medium"
+              >
+                {item}
+              </motion.a>
+            ))}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -76,25 +67,16 @@ const Header1 = () => {
         {isOpen && (
           <div className="md:hidden py-4 px-2 bg-white shadow-lg">
             <nav className="flex flex-col space-y-4">
-              {navItems.map((item) => {
-                const isAbode = item === 'Abode';
-                return (
-                  <a
-                    key={item}
-                    href={
-                      isAbode
-                        ? "https://thehimalayanabode.in"
-                        : `${item === 'Home' ? '/' : item.toLowerCase()}`
-                    }
-                    target={isAbode ? "_blank" : "_self"}
-                    rel={isAbode ? "noopener noreferrer" : undefined}
-                    className="text-black hover:opacity-75 transition-opacity duration-150"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item}
-                  </a>
-                );
-              })}
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                  className="text-black hover:opacity-75 transition-opacity duration-150"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
             </nav>
           </div>
         )}
