@@ -1,55 +1,68 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Quote, Star, Sparkles, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 import RenderModal from "./RenderModel";
 
 const Testimonials = () => {
   const [selectedModal, setSelectedModal] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const testimonials = [
-    {
-      name: "Seranne",
-      role: "Solo Backpacker",
-      image: [
-        "/assest/Enchanting_delhi_shimla/Himalaya.webp",
-        "/assest/Enchanting_delhi_shimla/himalaya.webp",
-      ],
-      text: "They say that this means good luck, and I wish you all the luck with everything. I am very grateful for everything you did for me. Without you, I couldn’t make this trip so good. Shukriya!!",
-      location: "Himalayas, India",
-      rating: 5,
-    },
-    {
-      name: "Garlic Girls",
-      role: "Road Trippers",
-      image: ["/assest/Enchanting_delhi_shimla/Road_trip.webp"],
-      text: "There are no bad people. Only good people, that do bad things. — Sunil, the wise (2019). The memories we made on these mountain roads will stay with us forever.",
-      location: "India Roadtrip, August 2019",
-      rating: 5,
-    },
-    {
-      name: "Shivangini Chauhan",
-      role: "Adventure Enthusiast",
-      image: [
-        "/assest/Enchanting_delhi_shimla/Spiti_valley.webp",
-        "/assest/Enchanting_delhi_shimla/himachal.webp",
-      ],
-      text: "My recent trip to Spiti was incredible, not just because of the stunning location, but mainly due to the wonderful people I met along the way. Sunil Bhaiya's captivating Himachali stories added an extra layer of charm to the journey. Despite challenges like the lack of running water, it taught me the profound value of water in more ways than one. It feels like yesterday; Spiti, you are truly magnificent.",
-      location: "Spiti Valley, Himachal Pradesh",
-      rating: 5,
-    },
-    {
-      name: "Madhuri",
-      role: "Pilgrim & Cultural Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/dwarka.webp"],
-      text: "Traveling with mom to Dwarka, Somnath and Gir in Gujarat has been nothing but spectacular. Marvelous darshan to the temples and such warm hospitality made me grateful. Huge thanks to Sunil Bhai, who has always been by our side, taking special care of mom and ensuring everything went smoothly. Can’t thank you enough, Bhai, for being there.",
-      location: "Dwarka, Gujarat",
-      rating: 5,
-    },
-  ];
+  // Fetch strictly from backend database (limit=4 for Home page)
+  useEffect(() => {
+    let isMounted = true;
+    const fetchHomeTestimonials = async () => {
+      try {
+        const baseUrl =
+          process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const res = await axios.get(`${baseUrl}/api/testimonials?limit=4`, {
+          timeout: 7000,
+        });
+
+        const items = res?.data?.testimonials;
+        if (isMounted && Array.isArray(items)) {
+          const normalized = items.slice(0, 4).map((t) => {
+            const imgs =
+              Array.isArray(t.images) && t.images.length > 0
+                ? t.images
+                : Array.isArray(t.image) && t.image.length > 0
+                ? t.image
+                : ["/assest/Enchanting_delhi_shimla/Himalaya.webp"];
+
+            return {
+              id: t.id,
+              name: t.name,
+              role: t.role || "Traveler",
+              image: imgs,
+              text: t.text,
+              location: t.location,
+              rating: t.rating || 5,
+            };
+          });
+          setTestimonials(normalized);
+        }
+      } catch (err) {
+        console.error("Error loading home testimonials:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchHomeTestimonials();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const TestimonialCard = ({ testimonial, index }) => {
+    const coverImage =
+      Array.isArray(testimonial.image) && testimonial.image.length > 0
+        ? testimonial.image[0]
+        : "/assest/Enchanting_delhi_shimla/Himalaya.webp";
+
     return (
       <motion.div
         id="testimonials"
@@ -72,8 +85,8 @@ const Testimonials = () => {
       >
         <div className="relative h-[420px] sm:h-[460px] overflow-hidden">
           <img
-            src={testimonial.image[0]}
-            alt={`${testimonial.name} journey in ${testimonial.location}`}
+            src={coverImage}
+            alt={`${testimonial.name} in ${testimonial.location}`}
             width="800"
             height="800"
             loading="lazy"
@@ -89,7 +102,7 @@ const Testimonials = () => {
           <div className="flex items-center justify-between mb-3">
             <Quote className="w-8 h-8 text-orange-400 opacity-90" />
             <div className="flex gap-1">
-              {[...Array(testimonial.rating)].map((_, i) => (
+              {[...Array(testimonial.rating || 5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
               ))}
             </div>
@@ -106,13 +119,18 @@ const Testimonials = () => {
             </div>
             <div className="flex items-center gap-1 text-[11px] text-white/80">
               <MapPin className="w-3.5 h-3.5 text-orange-400" />
-              <span>{testimonial.location.split(",")[0]}</span>
+              <span>{testimonial.location ? testimonial.location.split(",")[0] : ""}</span>
             </div>
           </div>
         </div>
       </motion.div>
     );
   };
+
+  // If loading and no testimonials yet, or no testimonials found
+  if (!loading && testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="bg-slate-50/70 py-20 px-4 sm:px-6 lg:px-8">
@@ -133,7 +151,7 @@ const Testimonials = () => {
         {/* 2-Column Responsive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} index={index} />
+            <TestimonialCard key={testimonial.id || index} testimonial={testimonial} index={index} />
           ))}
         </div>
 

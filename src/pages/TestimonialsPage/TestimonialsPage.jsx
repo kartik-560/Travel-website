@@ -1,240 +1,572 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useCallback, useEffect, useMemo } from "react";
+import axios from "axios";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Quote,
+  Star,
+  MapPin,
+  Sparkles,
+  Maximize2,
+  Compass,
+  ArrowRight,
+  MessageCircle,
+  Camera,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
+import RenderModal from "../../components/Testimonials/RenderModel";
 
-import React, { useState, useCallback, useEffect } from 'react';
-
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
-import RenderModal from '../../components/Testimonials/RenderModel';
 const TestimonialsPage = () => {
-
   const [selectedModal, setSelectedModal] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const testimonials = [
-    {
-      name: "Seranne",
-      role: "Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Himalaya.webp", "/assest/Enchanting_delhi_shimla/himalaya.webp"],
-      text: "They say that this means good luck, and I wish you all the luck with everything. I am very grateful for everything you did for me. Without you, I couldn’t make this trip so good. Shukriya!!",
-      location: "Himalayas, India",
-      rating: 5
-    },
-    {
-      name: "Garlic Girls",
-      role: "Road Trippers",
-      image: ["/assest/Enchanting_delhi_shimla/Road_trip.webp"],
-      text: "There are no bad people. Only good people, that do bad things. - Sunil, the wise (2019).",
-      location: "India Roadtrip, August 2019",
-      rating: 5
-    },
-    {
-      name: "Shivangini Chauhan",
-      role: "Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.webp","/assest/Enchanting_delhi_shimla/himachal.webp"],
-      text: "My recent trip to Spiti was incredible, not just because of the stunning location, but mainly due to the wonderful people I met along the way. Sunil Bhaiya's captivating Himachali stories added an extra layer of charm to the journey. Despite challenges like the lack of running water, it taught me the profound value of water in more ways than one. It feels like yesterday; Spiti, you are truly magnificent.",
-      location: "Spiti Valley, Himachal Pradesh",
-      rating: 5
-    },
-    {
-      name: "Madhuri",
-      role: "Pilgrim Traveler",
-      image: ["/assest/Enchanting_delhi_shimla/Spiti_valley.webp","/assest/Enchanting_delhi_shimla/gujrat.webp"],
-      text: "Traveling with mom to Dwarka, Somnath and Gir in Gujarat has been nothing but spectacular. Marvelous darshan to the temples and such warm hospitality made me grateful. Huge thanks to Sunil Bhai, who has always been by our side, taking special care of mom and ensuring everything went smoothly. Can’t thank you enough, Bhai, for being there.",
-      location: "Dwarka, Gujarat",
-      rating: 5
-    }
-  ];
-    const [imageIndices, setImageIndices] = useState(
-  () => Array(testimonials.length).fill(0)
-);
+  // Dynamically fetch all published testimonials from backend database
   useEffect(() => {
-  setImageIndices(prev =>
-    Array(testimonials.length)
-      .fill(0)
-      .map((_, i) => (Number.isFinite(prev[i]) ? prev[i] : 0))
+    let isMounted = true;
+    const fetchAllTestimonials = async () => {
+      try {
+        const baseUrl =
+          process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const res = await axios.get(`${baseUrl}/api/testimonials`, {
+          timeout: 7000,
+        });
+
+        const items = res?.data?.testimonials;
+        if (isMounted && Array.isArray(items)) {
+          const normalized = items.map((t, idx) => {
+            const imgs =
+              Array.isArray(t.images) && t.images.length > 0
+                ? t.images
+                : Array.isArray(t.image) && t.image.length > 0
+                ? t.image
+                : ["/assest/Enchanting_delhi_shimla/Himalaya.webp"];
+
+            return {
+              id: t.id || idx + 1,
+              name: t.name,
+              role: t.role || "Traveler",
+              category: t.category || "Adventure & Trekking",
+              image: imgs,
+              text: t.text,
+              location: t.location,
+              rating: t.rating || 5,
+              tag: t.tag || (t.category ? `${t.category} Trail` : "Expedition"),
+            };
+          });
+          setTestimonials(normalized);
+        }
+      } catch (err) {
+        console.error("Error fetching testimonials:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchAllTestimonials();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Filter categories extracted dynamically from testimonials
+  const categories = useMemo(() => {
+    const cats = new Set(testimonials.map((t) => t.category).filter(Boolean));
+    return ["All", ...Array.from(cats)];
+  }, [testimonials]);
+
+  const filteredTestimonials = useMemo(() => {
+    if (activeFilter === "All") return testimonials;
+    return testimonials.filter((t) => t.category === activeFilter);
+  }, [activeFilter, testimonials]);
+
+  const [imageIndices, setImageIndices] = useState(() =>
+    Array(testimonials.length).fill(0)
   );
-}, [testimonials.length]);
 
-const handleImageNavigation = useCallback((index, direction) => {
-  setImageIndices(prev => {
-    const next = [...prev];
-    const imageCount = testimonials[index]?.image?.length ?? 0;
-    if (imageCount === 0) return next;
-    const current = Number.isFinite(next[index]) ? next[index] : 0;
-    next[index] = (current + direction + imageCount) % imageCount;
-    return next;
-  }); 
-}, [testimonials]);
-
-  const TestimonialCard = ({ testimonial, index }) => {
-    return (
-      <motion.div
-        id='testimonials'
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.5,
-            delay: index * 0.1
-          }
-        }}
-        className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 z-10" />
-
-        <div className="relative h-[500px]">
-          {testimonial.image.map((img, imgIndex) => (
-            <img
-              key={imgIndex}
-              src={img}
-              alt={`${testimonial.name} (${testimonial.location})`}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 
-                ${imageIndices[index] === imgIndex ? 'opacity-100' : 'opacity-0'}`}
-            />
-          ))}
-        </div>
-
-        <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 z-40 -translate-y-1/2">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleImageNavigation(index, -1);
-            }}
-            className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors opacity-0 group-hover:opacity-100"
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleImageNavigation(index, 1);
-            }}
-            className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors opacity-0 group-hover:opacity-100"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-          <Quote className="w-10 h-10 mb-4 text-yellow-400 opacity-80" />
-          <div className="flex gap-1 mb-2">
-            {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-            ))}
-          </div>
-          <p className="text-white mb-4">{testimonial.text}</p>
-          <div className="border-t border-white/20 pt-4">
-            <h4 className="text-white font-bold">{testimonial.name}</h4>
-            <p className="text-yellow-400">{testimonial.role}</p>
-            <p className="text-white/80 text-sm">{testimonial.location}</p>
-          </div>
-        </div>
-      </motion.div>
+  useEffect(() => {
+    setImageIndices((prev) =>
+      Array(testimonials.length)
+        .fill(0)
+        .map((_, i) => (Number.isFinite(prev[i]) ? prev[i] : 0))
     );
-  };
+  }, [testimonials.length]);
 
-const teamData = [
-    {
-      name: 'Sunil Kumar',
-      title: 'Founder',
-      image: '/assest/Team/sunilkumar.webp',
-      bio: 'From the winding lanes of Shimla to the remotest trails of Himachal, Sunil Kumar has lived travel long before he made it his profession. A licensed tour expert with a Master’s in Tourism, a diploma in German language, and a Basic Mountaineering certification from HMI Darjeeling, he brings knowledge, adventure, and cultural depth into every journey. Having led road trips across 20 Indian states and guided global travellers through the Himalayas, Sunil’s forte lies in crafting experiences that feel less like tours and more like stories waiting to be lived.'
+  const handleImageNavigation = useCallback(
+    (originalIndex, direction, e) => {
+      if (e) e.stopPropagation();
+      setImageIndices((prev) => {
+        const next = [...prev];
+        const imageCount = testimonials[originalIndex]?.image?.length ?? 0;
+        if (imageCount === 0) return next;
+        const current = Number.isFinite(next[originalIndex]) ? next[originalIndex] : 0;
+        next[originalIndex] = (current + direction + imageCount) % imageCount;
+        return next;
+      });
     },
-    {
-      name: 'Sunil Sharma',
-      title: 'Co-founder',
-      image: '/assest/Team/sunil.webp',
-      bio: 'With a vision to revolutionize the tourism industry, Sunil co-founded Better Backpacking India to make travel more accessible, transparent, and customer-friendly. His goal is to provide travelers with not just a trip, but an experience that is immersive, exhilarating, and unforgettable.'
-    },
-    {
-      name: 'Aashima Kanwar',
-      title: 'Operations Executive',
-      image: '/assest/Team/aashima.webp',
-      bio: 'With four years of experience in sales and team leadership, Aashima is a dedicated travel expert committed to curating personalized travel experiences. Hailing from the serene landscapes of Himachal Pradesh, at the foot of Churdhar Peak—the highest in Sirmour—she has a deep appreciation for nature and exploration. Her strong sense of responsibility ensures that every journey she plans is not just a trip but a cherished memory for every traveler.'
-    },
-    {
-      name: 'Neetima',
-      title: 'Certified Mountaineer & Trek Guide',
-      image: '/assest/Team/neetima.webp',
-      bio: 'A certified mountaineer, skier (ABVIMAS), and licensed tourist guide (HP Tourism), Neetima has spent the past six years leading adventurers through the mountains. Born amidst nature in a humble cow shelter, she was inspired by her uncle, who summited the world’s highest peak in 1993. Living by her mother’s prophecy—marked by a mole on her foot that foretold endless exploration—she now guides fellow trekkers, especially women, helping them discover the thrill and serenity of the wild. With four mountain expeditions every month, she is dedicated to empowering others to conquer new heights.'
-    },
-    {
-      name: 'Sanjay Chauhan',
-      title: 'Experienced Driver',
-      image: '/assest/Team/sanjay.webp',
-      bio: 'A professional driver having 25 years driving experience in the difficult mountain terrain i.e. Kinnaur,Spiti, Lahaul,Leh, Kashmir and Utrakhand. The best thing about him being a driver is that he is non-smoker and a teetotaler .'
-    }
+    [testimonials]
+  );
 
-
+  // 5 Team Members matching the screenshot exactly
+  const teamData = [
+    {
+      name: "Sunil Kumar",
+      title: "Founder & Lead Guide",
+      badge: "Founder",
+      image: "/assest/Team/sunilkumar.webp",
+      bio: "From the winding lanes of Shimla to the remotest high passes of Himachal, Sunil lived travel long before making it his profession. Holding a Master's in Tourism, a diploma in German, and Basic Mountaineering certification from HMI Darjeeling, he brings deep cultural warmth into every journey.",
+      highlights: [
+        "HMI Darjeeling Certified",
+        "German Language Diploma",
+        "20+ Indian States Charted",
+      ],
+    },
+    {
+      name: "Sunil Sharma",
+      title: "Co-Founder & Route Scout",
+      badge: "Co-Founder",
+      image: "/assest/Team/sunil.webp",
+      bio: "With a mission to revolutionize responsible tourism, Sunil co-founded Better Backpacking India to make off-grid travel safe, transparent, and community-centric. He scouts unmapped village routes and coordinates fair-pay local homestays.",
+      highlights: [
+        "Route Pioneer",
+        "Community Lead",
+        "Homestay Network Architect",
+      ],
+    },
+    {
+      name: "Aashima Kanwar",
+      title: "Operations & Logistics Executive",
+      badge: "Trip Architect",
+      image: "/assest/Team/aashima.webp",
+      bio: "Hailing from Himachal Pradesh at the foot of sacred Churdhar Peak, Aashima ensures permits, high-altitude transport, homestay bookings, and on-ground logistics run with clockwork precision.",
+      highlights: [
+        "Permits & Logistics",
+        "Himachal Native",
+        "Safety Dispatch Coordinator",
+      ],
+    },
+    {
+      name: "Neetima",
+      title: "Certified Mountaineer & Trek Guide",
+      badge: "Certified Skier",
+      image: "/assest/Team/neetima.webp",
+      bio: "A certified mountaineer, skier (ABVIMAS), and licensed tourist guide (HP Tourism), Neetima leads high-altitude mountain expeditions. Inspired by Himalayan summits, she empowers fellow travelers and women backpackers across wild terrains.",
+      highlights: [
+        "ABVIMAS Skier",
+        "Licensed HP Guide",
+        "Women Trail Leader",
+      ],
+    },
+    {
+      name: "Sanjay Chauhan",
+      title: "Senior Mountain Driver",
+      badge: "25+ Yrs Exp.",
+      image: "/assest/Team/sanjay.webp",
+      bio: "A professional terrain specialist with 25 years navigating extreme mountain roads across Kinnaur, Spiti, Lahaul, Leh, and Uttarakhand. Non-smoker and teetotaler, delivering absolute safety on high-altitude passes.",
+      highlights: [
+        "25+ Yrs Mountain Exp.",
+        "Kinnaur & Spiti Specialist",
+        "100% Teetotaler",
+      ],
+    },
   ];
 
   return (
+    <div className="min-h-screen bg-slate-50/60 font-sans selection:bg-orange-500 selection:text-white">
+      {/* ============================================================== */}
+      {/* 1. HERO SECTION: Generous top padding for clean header clearance */}
+      {/* ============================================================== */}
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 overflow-hidden">
+        {/* Soft mountain ambient blur behind header */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-    <>
-      <div className="bg-gray-50 cursor-pointer pt-20 sm:pt-28">
-        <div className="max-w-7xl mx-auto py-16 px-4">
-          <div className="text-center mb-12 mt-10">
-            <h2 className="text-4xl font-bold mb-4">What Our Travelers Say</h2>
-            <p className="text-gray-600">Real stories from real adventurers</p>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold uppercase tracking-wider shadow-xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-orange-600" />
+              <span>Authentic Mountain Experiences</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight"
+            >
+              What Our Travelers Say
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-light max-w-2xl mx-auto"
+            >
+              Unfiltered stories and cherished memories shared by adventurers who explored high Himalayan passes, untamed valleys, and sacred roads alongside us.
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} index={index} />
-            ))}
-
-            <AnimatePresence>
-              {selectedModal && (
-                <RenderModal
-                  selectedModal={selectedModal}
-                  setSelectedModal={setSelectedModal}
-                  testimonials={testimonials}
-                  currentImageIndex={currentImageIndex}
-                  setCurrentImageIndex={setCurrentImageIndex}
-                />
-              )}
-            </AnimatePresence>
-          </div>
+          {/* Interactive Category Filter Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center justify-center gap-2 pt-8 sm:pt-10"
+          >
+            {categories.map((category) => {
+              const isActive = activeFilter === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setActiveFilter(category)}
+                  className={`px-4 sm:px-5 py-2 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? "bg-orange-500 text-white shadow-md shadow-orange-500/25 scale-105"
+                      : "bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200/80 shadow-xs"
+                  }`}
+                >
+                  {category === "All" ? "All Stories" : category}
+                </button>
+              );
+            })}
+          </motion.div>
         </div>
-      </div>
-      <div className="bg-[#F7F5F2] font-sans mt-[-10px]" >
+      </section>
 
-        <div className="bg-[#F5F5F4] text-center py-20 md:py-20">
-          <div className="container mx-auto px-4">
-            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4 text-[#008080]">
+      {/* ============================================================== */}
+      {/* 2. TESTIMONIALS CARDS: Interactive, Responsive 2x2 Grid         */}
+      {/* ============================================================== */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+        {loading ? (
+          <div className="py-20 text-center">
+            <Loader2 className="w-8 h-8 animate-spin text-orange-500 mx-auto mb-3" />
+            <p className="text-sm text-slate-500 font-medium">Loading traveler stories...</p>
+          </div>
+        ) : filteredTestimonials.length === 0 ? (
+          <div className="py-16 text-center text-slate-500 text-sm">
+            No testimonials found in this category.
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredTestimonials.map((testimonial) => {
+              const originalIndex = testimonials.findIndex(
+                (item) =>
+                  (item.id && item.id === testimonial.id) ||
+                  item.name === testimonial.name
+              );
+              const resolvedIndex = originalIndex >= 0 ? originalIndex : 0;
+              const activeImgIndex = imageIndices[resolvedIndex] || 0;
+              const totalImages = testimonial.image.length;
+              const hasMultipleImages = totalImages > 1;
+
+              return (
+                <motion.div
+                  layout
+                  key={testimonial.id || testimonial.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  onClick={() => {
+                    setSelectedModal(resolvedIndex + 1);
+                    setCurrentImageIndex(activeImgIndex);
+                  }}
+                  className="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-slate-950 border border-slate-200/60 cursor-pointer flex flex-col justify-between min-h-[440px] sm:min-h-[470px]"
+                >
+                  {/* Background Photo Slider with smooth Crossfade */}
+                  <div className="absolute inset-0 z-0 overflow-hidden">
+                    {testimonial.image.map((img, imgIdx) => (
+                      <img
+                        key={imgIdx}
+                        src={img}
+                        alt={`${testimonial.name} in ${testimonial.location}`}
+                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+                          activeImgIndex === imgIdx
+                            ? "opacity-100 scale-100"
+                            : "opacity-0 scale-100"
+                        }`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ))}
+
+                    {/* Rich Dark Gradient Scrim to guarantee high contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-950/35 group-hover:via-slate-950/70 transition-colors" />
+                  </div>
+
+                  {/* Card Header: Rating, Tag, and In-card Image Controls */}
+                  <div className="relative z-10 p-5 sm:p-6 flex items-center justify-between gap-3">
+                    {/* Rating & Tag Pill */}
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <span className="text-white text-xs font-bold">5.0</span>
+                      </div>
+                      <span className="hidden sm:inline-block px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-[11px] font-semibold border border-white/10 uppercase tracking-wider">
+                        {testimonial.tag}
+                      </span>
+                    </div>
+
+                    {/* Image navigation & Zoom action */}
+                    <div className="flex items-center gap-2">
+                      {hasMultipleImages && (
+                        <div
+                          className="flex items-center gap-1 bg-black/50 backdrop-blur-md p-1 rounded-full border border-white/15"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            type="button"
+                            onClick={(e) => handleImageNavigation(resolvedIndex, -1, e)}
+                            aria-label="Previous photo"
+                            className="p-1 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <span className="text-[11px] text-white/90 px-1 font-mono font-medium">
+                            {activeImgIndex + 1}/{totalImages}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => handleImageNavigation(resolvedIndex, 1, e)}
+                            aria-label="Next photo"
+                            className="p-1 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      )}
+
+                      <span
+                        title="Click to expand photos and full story"
+                        className="p-2 rounded-full bg-black/50 backdrop-blur-md text-white/90 border border-white/15 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all shadow-xs"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Body: Quote & Traveler Details */}
+                  <div className="relative z-10 p-6 sm:p-8 space-y-4">
+                    <Quote className="w-9 h-9 text-orange-400/90 shrink-0" />
+
+                    <blockquote className="text-sm sm:text-base text-slate-100 font-light leading-relaxed italic">
+                      &ldquo;{testimonial.text}&rdquo;
+                    </blockquote>
+
+                    {/* Traveler Info Strip */}
+                    <div className="pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h2 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-1.5">
+                          <span>{testimonial.name}</span>
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        </h2>
+                        <p className="text-xs text-orange-300 font-medium">
+                          {testimonial.role}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 text-slate-300 text-xs bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                        <MapPin className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                        <span>{testimonial.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+        )}
+
+        {/* Modal for viewing the enlarged photos & story */}
+        <AnimatePresence>
+          {selectedModal && (
+            <RenderModal
+              selectedModal={selectedModal}
+              setSelectedModal={setSelectedModal}
+              testimonials={testimonials}
+              currentImageIndex={currentImageIndex}
+              setCurrentImageIndex={setCurrentImageIndex}
+            />
+          )}
+        </AnimatePresence>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 3. ETHOS CALLOUT: Purely editorial heading strip                */}
+      {/* ============================================================== */}
+      <section className="border-y border-slate-200/80 bg-white py-12 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+              <Compass className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-slate-900">
+                Small-Batch Journeys. Unhurried Exploration.
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-light">
+                We design intimate expeditions with verified local homestays and native Himalayan guides.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/itinerary"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm transition-all shadow-xs shrink-0 cursor-pointer"
+          >
+            <span>Explore Handcrafted Itineraries</span>
+            <ArrowRight className="w-4 h-4 text-orange-400" />
+          </Link>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 4. MEET THE HEART OF OUR ADVENTURES (DARK STYLING FROM IMAGE)   */}
+      {/* ============================================================== */}
+      <section className="py-20 sm:py-28 bg-[#0a0f1d] text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/40 bg-orange-950/20 text-orange-400 text-xs font-bold uppercase tracking-wider">
+              <Compass className="w-3.5 h-3.5 text-orange-400" />
+              <span>Native Mountain Leadership</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               Meet The Heart of Our Adventures
-            </h1>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-[#333333]/80">
-              At Better Backpacking India, our team is driven by a shared passion for travel, adventure, and creating unforgettable experiences. Each member brings unique expertise, ensuring that every journey is seamless, thrilling, and truly memorable.
+            </h2>
+
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+              Every expedition is powered by certified mountaineers, veteran terrain drivers, and local logistics scouts who keep your journey safe, unhurried, and unforgettable.
             </p>
           </div>
-        </div>
 
-        <div className="container mx-auto py-16 md:py-24 px-4 mt-[-60px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {teamData.map((member, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-lg p-8 text-center flex flex-col items-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-40 h-40 rounded-full object-cover border-4 border-[#E87500] mb-6"
-                />
-                <h2 className="font-serif text-3xl text-[#333333] font-bold">{member.name}</h2>
-                <p className="text-[#008080] italic font-semibold text-lg mb-4">{member.title}</p>
-                <p className="text-[#333333]/80 text-base text-left">
-                  {member.bio}
-                </p>
-              </div>
-            ))}
+          {/* 5 Team Members Grid: Row 1 has 3 cards, Row 2 has 2 centered cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 sm:gap-8">
+            {teamData.map((member, idx) => {
+              const colSpanClass =
+                idx === 3
+                  ? "lg:col-span-2 lg:col-start-2 sm:col-span-1"
+                  : idx === 4
+                  ? "lg:col-span-2 sm:col-span-2 sm:max-w-md sm:mx-auto sm:w-full lg:max-w-none"
+                  : "lg:col-span-2 sm:col-span-1";
+
+              return (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className={`group rounded-3xl overflow-hidden bg-[#11192e] border border-slate-800/80 shadow-2xl hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between ${colSpanClass}`}
+                >
+                  {/* Portrait photo */}
+                  <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      width="400"
+                      height="500"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#11192e] via-transparent to-transparent" />
+
+                    {/* Role badge */}
+                    <span className="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-white text-slate-950 text-[11px] font-bold shadow-md">
+                      {member.badge}
+                    </span>
+
+                    {/* Overlaid Title on photo */}
+                    <div className="absolute bottom-3.5 left-4 right-4">
+                      <h3 className="text-lg font-bold text-white">{member.name}</h3>
+                      <p className="text-xs text-orange-400 font-semibold">{member.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Bio & Highlights */}
+                  <div className="p-5 sm:p-6 space-y-4 flex flex-col grow justify-between bg-[#11192e]">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                      {member.bio}
+                    </p>
+
+                    {/* Tag highlights */}
+                    <div className="pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5">
+                      {member.highlights.map((h, i) => (
+                        <span
+                          key={i}
+                          className="text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md bg-slate-800/70 text-slate-300 border border-slate-700/60"
+                        >
+                          ✓ {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
-      </div>
-    </>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 5. BOTTOM INQUIRY STRIP: Direct WhatsApp & Itinerary Pathway    */}
+      {/* ============================================================== */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <div className="rounded-3xl bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 text-white p-8 sm:p-12 shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center sm:text-left max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-[11px] font-semibold uppercase tracking-wider">
+              <Camera className="w-3.5 h-3.5" />
+              <span>Begin Your Journey</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Ready to Craft Your Own Mountain Story?
+            </h3>
+            <p className="text-orange-100 text-xs sm:text-sm font-light">
+              Connect directly with Sunil and our local team in Shimla to curate your personalized backpacking journey.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+            <a
+              href="https://wa.me/918091790220?text=Hi%20Sunil,%20I'd%20like%20to%20plan%20a%20trip%20with%20Better%20Backpacking%20India"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-orange-600 hover:bg-orange-50 font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-600" />
+              <span>Chat on WhatsApp</span>
+            </a>
+
+            <Link
+              to="/itinerary"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-black/20 hover:bg-black/30 text-white border border-white/20 font-semibold text-xs sm:text-sm backdrop-blur-md transition-all cursor-pointer"
+            >
+              <span>Explore Expeditions</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
